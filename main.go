@@ -5,6 +5,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 
+	"github.com/Depado/smallblog/filesystem"
 	"github.com/Depado/smallblog/models"
 	"github.com/Depado/smallblog/views"
 )
@@ -15,6 +16,7 @@ func main() {
 	if err = models.ParseDir("pages"); err != nil {
 		log.Fatal(err)
 	}
+	go filesystem.Watch("pages")
 
 	gin.SetMode(gin.ReleaseMode)
 	r := gin.Default()

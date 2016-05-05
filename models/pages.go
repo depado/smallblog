@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 	"os"
 	"path"
+	"path/filepath"
 	"sort"
 	"time"
 
@@ -69,7 +70,7 @@ func (p *Page) ParseFile(fn string) error {
 	var err error
 	var file *os.File
 
-	p.File = fn
+	p.File = filepath.Base(fn)
 	if file, err = os.Open(fn); err != nil {
 		return err
 	}
@@ -139,6 +140,18 @@ func (p *Page) ParseMarkdown(b []byte) {
 	p.Markdown = template.HTML(string(blackfriday.MarkdownCommon(b)))
 }
 
+func (p *Page) Insert(batch bool) error {
+	if val, ok := MPages[p.Slug]; ok {
+		return fmt.Errorf("Two pages have the same slug : %s and %s both have %s", p.File, val.File, p.Slug)
+	}
+	MPages[p.Slug] = p
+	SPages = append(SPages, p)
+	if !batch {
+		sort.Sort(SPages)
+	}
+	return nil
+}
+
 // ParseDir cycles through a directory and parses each file one by one.
 func ParseDir(dir string) error {
 	var err error
@@ -154,20 +167,18 @@ func ParseDir(dir string) error {
 
 	for _, f := range files {
 		s := time.Now()
-		fn := path.Join(dir, f.Name())
 		p := Page{}
-		if err = p.ParseFile(fn); err != nil {
-			return err
+		if err = p.ParseFile(path.Join(dir, f.Name())); err != nil {
+			fmt.Printf("[SB] [ ERR] [% 9v] [%s] Could not process file : %s\n", time.Since(s), p.File, err)
+			continue
 		}
-		if val, ok := MPages[p.Slug]; ok {
-			return fmt.Errorf("Two pages have the same slug : %s and %s both have %s", p.File, val.File, p.Slug)
+		if err = p.Insert(true); err != nil {
+			fmt.Printf("[SB] [ ERR] [% 9v] [%s] [Ignored] Could not insert file : %s\n", time.Since(s), p.File, err)
+			continue
 		}
-		MPages[p.Slug] = &p
-		SPages = append(SPages, &p)
-		fmt.Printf("[SB] [% 9v] [%s] [/post/%s] %s\n", time.Since(s), fn, p.Slug, p.Title)
+		fmt.Printf("[SB] [INFO] [% 9v] [%s] [/post/%s] %s\n", time.Since(s), p.File, p.Slug, p.Title)
 	}
 	sort.Sort(SPages)
-	fmt.Printf("[SB] Generated %d pages in %v\n", len(files), time.Since(start))
-
+	fmt.Printf("[SB] [INFO] Generated %d pages in %v\n", len(files), time.Since(start))
 	return nil
 }
