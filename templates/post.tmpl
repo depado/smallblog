@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>{{ .post.Title }}</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
+    <link href="/static/prism.css" rel="stylesheet" />
+    <link href="/static/style.css" rel="stylesheet" />
+    <link rel="icon" href="/static/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <div class="head">
+        <h1 class="title">{{ .post.Title }}</h1>
+        {{ if .post.Description }}<i>{{ .post.Description }}</i>{{ end }}
+        {{ range .post.Tags }}<span class="tag">{{ . }}</span> {{ end }}
+    </div>
+    {{ .post.Markdown }}
+    <div style="text-align: right; margin-top: 25px;">
+        {{ .post.DateFmt }}{{ if .post.Author }} - {{ .post.Author }}{{ end }}
+    </div>
+    <script src="/static/prism.js"></script>
+</body>
+
+</html>
