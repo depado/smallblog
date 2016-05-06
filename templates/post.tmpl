@@ -12,14 +12,15 @@
 </head>
 
 <body>
+    <a href="/">← Back</a>
     <div class="head">
         <h1 class="title">{{ .post.Title }}</h1>
-        {{ if .post.Description }}<i>{{ .post.Description }}</i>{{ end }}
+        {{ if .post.Description }}<i>{{ .post.Description }}</i>{{ end }}<br /><br />
         {{ range .post.Tags }}<span class="tag">{{ . }}</span> {{ end }}
     </div>
     {{ .post.Markdown }}
-    <div style="text-align: right; margin-top: 25px;">
-        {{ .post.DateFmt }}{{ if .post.Author }} - {{ .post.Author }}{{ end }}
+    <div class="footerinfo">
+        {{ .post.DateFmt }}{{ if .post.Author }} - {{ .post.Author }}{{ end }} - <a href="/post/{{ .post.Slug }}/raw">Raw Markdown</a>
     </div>
     <script src="/static/prism.js"></script>
 </body>

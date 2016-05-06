@@ -12,7 +12,7 @@
 
 <body>
     {{ range .posts }}
-        <a href="/post/{{ .Slug }}">{{ .DateFmt }} {{ .Title }}</a><br />
+        <a href="/post/{{ .Slug }}">{{ .DateFmt }} - {{ .Title }}</a><br />
     {{ end }}
 </body>
 

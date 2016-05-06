@@ -7,6 +7,7 @@ body {
     font-size: 18px;
     color: #444;
     padding: 0 10px;
+    background-color: #FFF;
 }
 a {
     text-decoration: none;
@@ -17,15 +18,18 @@ a:hover {
 }
 h1, h2, h3 {
     line-height: 1.2;
-}
-h3 {
-    margin-top: 70px;
+    margin-top: 50px;
 }
 pre {
     font-size: 14px;
 }
+hr {
+    border: 0;
+    height: 1px;
+    background: grey;
+}
 code {
-    background-color: rgba(0,0,0,0.04);
+    background-color: rgba(0, 0, 0, 0.04);
     padding: 0.2em;
     padding-left: 0.3em;
     padding-right: 0.3em;
@@ -35,6 +39,7 @@ code {
 }
 .title {
     margin-bottom: 0;
+    margin-top: 0;
 }
 .head {
     text-align: center;
@@ -42,11 +47,19 @@ code {
     margin-bottom: 75px;
 }
 .tag {
-    background: #588fe5;
+    background: grey;
     display: inline-block;
     color: #fff;
     position: relative;
-    padding: 0.2em;
-    border-radius: 4px;
+    border-radius: 16px;
+    padding-left: 0.6em;
+    padding-right: 0.6em;
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
     text-decoration: none;
+    font-size: 14px;
+}
+.footerinfo{
+    text-align: center;
+    margin-top: 70px;
 }
