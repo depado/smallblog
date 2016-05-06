@@ -9,12 +9,23 @@ import (
 
 // Post is the views for a single post.
 func Post(c *gin.Context) {
-	link := c.Param("link")
-	if val, ok := models.MPages[link]; ok {
+	slug := c.Param("slug")
+	if val, ok := models.MPages[slug]; ok {
 		c.HTML(http.StatusOK, "post.tmpl", gin.H{"post": val})
 	} else {
 		c.AbortWithStatus(http.StatusNotFound)
-		c.Writer.Write([]byte("404 Article not found"))
+		c.Writer.Write([]byte("404 Post not found"))
+	}
+}
+
+// RawPost is used to view the raw markdown file
+func RawPost(c *gin.Context) {
+	slug := c.Param("slug")
+	if val, ok := models.MPages[slug]; ok {
+		c.Writer.Write([]byte(val.Raw))
+	} else {
+		c.AbortWithStatus(http.StatusNotFound)
+		c.Writer.Write([]byte("404 Post not found"))
 	}
 }
 

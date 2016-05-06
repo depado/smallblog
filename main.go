@@ -25,7 +25,8 @@ func main() {
 	r.Static("/static", "./assets")
 	// Routes Definition
 	r.GET("/", views.Index)
-	r.GET("/post/:link", views.Post)
+	r.GET("/post/:slug", views.Post)
+	r.GET("/post/:slug/raw", views.RawPost)
 	// Run
 	r.Run(":8080")
 }
