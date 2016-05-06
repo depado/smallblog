@@ -3,8 +3,10 @@ package views
 import (
 	"net/http"
 
-	"github.com/Depado/smallblog/models"
 	"github.com/gin-gonic/gin"
+
+	"github.com/Depado/smallblog/conf"
+	"github.com/Depado/smallblog/models"
 )
 
 // Post is the views for a single post.
@@ -31,5 +33,5 @@ func RawPost(c *gin.Context) {
 
 // Index is the view to list all posts.
 func Index(c *gin.Context) {
-	c.HTML(http.StatusOK, "index.tmpl", gin.H{"posts": models.SPages})
+	c.HTML(http.StatusOK, "index.tmpl", gin.H{"posts": models.SPages, "info": conf.C})
 }

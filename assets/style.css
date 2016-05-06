@@ -37,6 +37,23 @@ code {
     font-size: 14px;
     border-radius: 0.3em;
 }
+blockquote {
+    padding-left: 10px;
+    padding-bottom: 10px;
+    margin: 0;
+    border-left: 4px solid;
+    border-color: grey;
+    font-style: italic;
+    overflow: auto;
+}
+blockquote>p{
+    padding-right: 10px;
+    margin: 0;
+}
+cite{
+    float: right;
+    font-style: normal;
+}
 .title {
     margin-bottom: 0;
     margin-top: 0;

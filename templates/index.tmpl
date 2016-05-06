@@ -11,6 +11,10 @@
 </head>
 
 <body>
+    <div class="head">
+    {{ if .info.Title }}<h1 class="title">{{ .info.Title }}</h1>{{ end }}
+    {{ if .info.Description }}<i>{{ .info.Description }}</i>{{ end }}
+    </div>
     {{ range .posts }}
         <a href="/post/{{ .Slug }}">{{ .DateFmt }} - {{ .Title }}</a><br />
     {{ end }}
