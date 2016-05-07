@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Index</title>
+    <title>{{ if .info.Title }}{{ .info.Title }}{{ else }}Home{{ end }}</title>
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
     <link href="/static/style.css" rel="stylesheet" />
     <link rel="icon" href="/static/favicon.ico">
