@@ -1,7 +1,6 @@
 package models
 
 import (
-	"bufio"
 	"fmt"
 	"html/template"
 	"io/ioutil"
@@ -13,7 +12,6 @@ import (
 	"time"
 
 	"github.com/russross/blackfriday"
-	"github.com/stvp/slug"
 	"gopkg.in/yaml.v2"
 )
 
@@ -24,16 +22,6 @@ var MPages map[string]*Page
 // SPages is a sorted slice of pages. Sorted by date, it is used to render all
 // the pages on the index page.
 var SPages pageSlice
-
-// meta is a struct that helps the unmarshalling of the yaml header in markdown files.
-type meta struct {
-	Title       string   `yaml:"title"` // Mandatory
-	Description string   `yaml:"description"`
-	Author      string   `yaml:"author"`
-	Slug        string   `yaml:"slug"`
-	Tags        []string `yaml:"tags"`
-	Date        string   `yaml:"date"` // Mandatory
-}
 
 // Page is the main struct. It contains everything needed to render the article.
 type Page struct {
@@ -85,34 +73,15 @@ func (p pageSlice) Less(i, j int) bool {
 // ParseFile parses a whole file and fills the Page struct.
 func (p *Page) ParseFile(fn string) error {
 	var err error
-	var file *os.File
 
 	p.File = filepath.Base(fn)
-	if file, err = os.Open(fn); err != nil {
+	h, b, err := SplitFile(fn)
+	if err != nil {
 		return err
 	}
-	defer file.Close()
-	header := ""
-	body := ""
-	in := true
-	scanner := bufio.NewScanner(file)
-	for scanner.Scan() {
-		if scanner.Text() == "" && in {
-			in = false
-			continue
-		}
-		if in {
-			header += scanner.Text() + "\n"
-		} else {
-			body += scanner.Text() + "\n"
-		}
-	}
-	if err = scanner.Err(); err != nil {
-		return err
-	}
-	p.Raw = body
-	p.ParseMarkdown([]byte(body))
-	if err = p.ParseMetadata([]byte(header)); err != nil {
+	p.Raw = string(b)
+	p.ParseMarkdown(b)
+	if err = p.ParseMetadata(h); err != nil {
 		return err
 	}
 	return nil
@@ -156,21 +125,13 @@ func (p *Page) ParseMetadata(h []byte) error {
 	if err = yaml.Unmarshal(h, &m); err != nil {
 		return err
 	}
-	if m.Date == "" {
-		return fmt.Errorf("Parser: The `date` field is mandatory.")
-	}
-	if m.Title == "" {
-		return fmt.Errorf("Parser: The `title` field is mandatory")
-	}
-	slug.Replacement = '-'
-	if m.Slug == "" {
-		p.Slug = slug.Clean(m.Title)
-	} else {
-		p.Slug = slug.Clean(m.Slug)
+	if err = m.Validate(); err != nil {
+		return err
 	}
 	if t, err = time.Parse("2006-01-02 15:04:05", m.Date); err != nil {
 		return err
 	}
+	p.Slug = m.GenerateSlug()
 	p.Description = m.Description
 	p.Date = t
 	p.DateFmt = t.Format("2006/01/02 15:04")
