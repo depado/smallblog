@@ -1,0 +1,12 @@
+title: First Article
+description: Article's Description
+slug: first-article
+author: Yourself
+date: 2016-05-06 11:22:00
+tags:
+    - first
+
+# Actual Markdown Content
+Notice the blank line right after the `tags` list.
+That's how you tell the parser that you are done with yaml format.
+And that's a really long line you don't want to type every other day because it's excessively long.

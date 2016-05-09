@@ -1,0 +1,6 @@
+host: 127.0.0.1
+port: 8080
+title: Blog's Title
+description: Blog's Description
+pages_dir: pages/
+debug: false

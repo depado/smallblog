@@ -5,23 +5,33 @@ body {
     text-align: justify;
     line-height: 1.6;
     font-size: 18px;
-    color: #444;
-    padding: 0 10px;
-    background-color: #FFF;
+    color: #7cb4fc;
+    text-shadow: #89d3fd 0 -1px 35px;
+    background: #000;
+    font: 400 19px VT323, monospace;
+}
+h1:after,h2:after,h3:after,h4:after{
+    content: "\220E";
+    -webkit-animation: cursor .95s ease-in-out infinite;
+    -moz-animation: cursor .95s ease-in-out infinite;
+    -ms-animation: cursor .95s ease-in-out infinite;
+    -o-animation: cursor .95s ease-in-out infinite;
+    animation: cursor .95s ease-in-out infinite;
+    font-size: 120%;
 }
 th, td {
     border-bottom: 1px solid #ddd;
     padding: 15px;
 }
 tr:nth-child(even) {
-    background-color: #f2f2f2
+    background-color: #000;
 }
 table{
     border-collapse: collapse;
 }
 a {
-    text-decoration: none;
-    color: grey;
+    text-decoration: underline;;
+    color: #7cb4fc;
 }
 a:hover {
     color: #444;
@@ -69,11 +79,10 @@ pre {
 }
 code {
     font-family: 'Roboto Mono';
-    background-color: rgba(0, 0, 0, 0.04);
-    padding: 0.2em;
+    border: 1px solid;
+    padding: 0;
     padding-left: 0.3em;
     padding-right: 0.3em;
-    padding-top: 0.3em;
     font-size: 14px;
     border-radius: 0.3em;
 }
@@ -81,6 +90,7 @@ pre>code {
     padding: 0;
     padding-right: 1em;
     color: #f8f8f2;
+    border: none;
     background-color: transparent;
     text-shadow: 0 1px rgba(0, 0, 0, 0.3);
     text-align: left;
@@ -118,4 +128,65 @@ pre>code {
 .footerinfo {
     text-align: center;
     margin-top: 70px;
+}
+
+@-webkit-keyframes scan {
+    from {
+        top: -50%;
+        left: 0;
+    }
+    to {
+        top: 150%;
+        left: 0;
+    }
+}
+@keyframes scan {
+    from {
+        top: -50%;
+        left: 0;
+    }
+    to {
+        top: 150%;
+        left: 0;
+    }
+}
+@-webkit-keyframes cursor {
+    from {
+        opacity: 1.0;
+    }
+    to {
+        opacity: 0.0;
+    }
+}
+@-moz-keyframes cursor {
+    from {
+        opacity: 1.0;
+    }
+    to {
+        opacity: 0.0;
+    }
+}
+@-ms-keyframes cursor {
+    from {
+        opacity: 1.0;
+    }
+    to {
+        opacity: 0.0;
+    }
+}
+@-o-keyframes cursor {
+    from {
+        opacity: 1.0;
+    }
+    to {
+        opacity: 0.0;
+    }
+}
+@keyframes cursor {
+    from {
+        opacity: 1.0;
+    }
+    to {
+        opacity: 0.0;
+    }
 }
