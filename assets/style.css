@@ -1,5 +1,9 @@
 /* Global Design */
 
+html, button, input, select, textarea,
+.pure-g [class *= "pure-u"] {
+    font-family: 'Roboto', serif;
+}
 body {
     font-family: 'Roboto', serif;
     text-align: justify;
@@ -110,7 +114,7 @@ pre>code {
     margin-top: 0;
     margin-bottom: 50px;
 }
-.tag {
+.sm-tag {
     background: grey;
     display: inline-block;
     color: #fff;
@@ -120,6 +124,18 @@ pre>code {
     padding-right: 0.6em;
     padding-top: 0.2em;
     padding-bottom: 0.2em;
+    text-decoration: none;
+    font-size: 14px;
+    margin: 3px;
+}
+.home-sm-tag {
+    background: grey;
+    display: inline-block;
+    color: #fff;
+    position: relative;
+    border-radius: 16px;
+    padding-left: 0.6em;
+    padding-right: 0.6em;
     text-decoration: none;
     font-size: 14px;
     margin: 3px;

@@ -37,6 +37,7 @@ func main() {
 
 	// Routes Definition
 	r.GET("/", views.Index)
+	r.GET("/tag/:tag", views.PostsByTag)
 	r.GET("/post/:slug", views.Post)
 	r.GET("/post/:slug/raw", views.RawPost)
 

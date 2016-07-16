@@ -4,8 +4,9 @@ import (
 	"log"
 	"path/filepath"
 
-	"github.com/Depado/smallblog/models"
 	"github.com/rjeczalik/notify"
+
+	"github.com/Depado/smallblog/models"
 )
 
 // Watch monitors the dir directory for changes and executes actions when a file
