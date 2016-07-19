@@ -5,6 +5,7 @@ import (
 	"os"
 )
 
+// SplitFile splits the yaml part of a file from the actual markdown content
 func SplitFile(fn string) ([]byte, []byte, error) {
 	var err error
 	var file *os.File
