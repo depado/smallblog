@@ -12,6 +12,7 @@
 </head>
 
 <body>
+    {{ if .extra }}<a href="/">← Back</a>{{ end }}
     <div class="head">
     {{ if .info.Title }}<h1 class="title">{{ .info.Title }}</h1>{{ end }}
     {{ if .info.Description }}<i>{{ .info.Description }}</i>{{ end }}
