@@ -9,6 +9,7 @@
     <link href="/static/prism.css" rel="stylesheet" />
     <link href="/static/grids-responsive-min.css" rel="stylesheet" />
     <link href="/static/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
     <link rel="icon" href="/static/favicon.gif">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
@@ -27,11 +28,17 @@
             <div class="footerinfo">
                 {{ .post.DateFmt }}{{ if .post.Author }} - {{ .post.Author }}{{ end }} - <a href="/post/{{ .post.Slug }}/raw">Raw Markdown</a>
             </div>
+            <div id="gitalk-container"></div>
         </div>
     </div>
     <script src="/static/prism.js"></script>
     <script src="/static/konami.js"></script>
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
     <script>
+        var tags = ['Gitalk']
+        {{ range .post.Tags }}
+        tags.push('{{ . }}');
+        {{ end }}
         var easter_egg = new Konami(function() {
             var fileref = document.createElement("link");
             fileref.setAttribute("rel", "stylesheet");
@@ -39,6 +46,18 @@
             fileref.setAttribute("href", "/static/term.css");
             document.getElementsByTagName("head")[0].appendChild(fileref)
         });
+        const gitalk = new Gitalk({
+            clientID: '7261e6111d20620adb79',
+            clientSecret: 'fff74aa46c0f2ad58b97fbaa19087cf4a0940654',
+            id: '{{ .post.Slug }}',
+            repo: 'comments',
+            owner: 'Depado',
+            admin: ['Depado'],
+            labels: tags,
+            body: "This is the comment issue for the [{{ .post.Title }}]("+location.href+") article.",
+            distractionFreeMode: false
+        })
+        gitalk.render('gitalk-container')
     </script>
 </body>
 

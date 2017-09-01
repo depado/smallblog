@@ -18,10 +18,10 @@ type meta struct {
 
 func (m *meta) Validate() error {
 	if m.Date == "" {
-		return fmt.Errorf("Parser: The `date` field is mandatory.")
+		return fmt.Errorf("parser: The `date` field is mandatory")
 	}
 	if m.Title == "" {
-		return fmt.Errorf("Parser: The `title` field is mandatory")
+		return fmt.Errorf("parser: The `title` field is mandatory")
 	}
 	return nil
 }
