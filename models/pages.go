@@ -29,7 +29,7 @@ var renderer = bfchroma.NewRenderer(
 )
 
 func render(input []byte) []byte {
-	return bf.Run(input, bf.WithRenderer(renderer), bf.WithExtensions(bf.Footnotes))
+	return bf.Run(input, bf.WithRenderer(renderer), bf.WithExtensions(bf.Footnotes|bf.FencedCode))
 }
 
 // MPages is the map containing all the articles. The key is the slug of the article
