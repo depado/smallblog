@@ -28,8 +28,7 @@ func PostsByTag(c *gin.Context) {
 			"extra": fmt.Sprintf("Posts tagged with '%s' tag", tag),
 		})
 	} else {
-		c.AbortWithStatus(http.StatusNotFound)
-		c.Writer.Write([]byte("404 No Posts Found with this tag"))
+		c.String(http.StatusNotFound, "404 no posts found with this tag")
 	}
 }
 
@@ -39,8 +38,7 @@ func Post(c *gin.Context) {
 	if val, ok := models.MPages[slug]; ok {
 		c.HTML(http.StatusOK, "post.tmpl", gin.H{"post": val})
 	} else {
-		c.AbortWithStatus(http.StatusNotFound)
-		c.Writer.Write([]byte("404 Post not found"))
+		c.String(http.StatusNotFound, "404 not found")
 	}
 }
 
@@ -50,8 +48,7 @@ func RawPost(c *gin.Context) {
 	if val, ok := models.MPages[slug]; ok {
 		c.Writer.Write([]byte(val.Raw))
 	} else {
-		c.AbortWithStatus(http.StatusNotFound)
-		c.Writer.Write([]byte("404 Post not found"))
+		c.String(http.StatusNotFound, "404 not found")
 	}
 }
 

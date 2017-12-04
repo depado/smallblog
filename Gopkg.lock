@@ -3,6 +3,30 @@
 
 [[projects]]
   branch = "master"
+  name = "github.com/Depado/bfchroma"
+  packages = ["."]
+  revision = "255181d49ba377007c4e495edeee26e7b858f761"
+
+[[projects]]
+  name = "github.com/alecthomas/chroma"
+  packages = [".","formatters/html","lexers","styles"]
+  revision = "bc2d6680e4f0f640898b2564c3d479d5cb9023f3"
+  version = "v0.1.1"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/danwakefield/fnmatch"
+  packages = ["."]
+  revision = "cbb64ac3d964b81592e64f957ad53df015803288"
+
+[[projects]]
+  name = "github.com/dlclark/regexp2"
+  packages = [".","syntax"]
+  revision = "487489b64fb796de2e55f4e8a4ad1e145f80e957"
+  version = "v1.1.6"
+
+[[projects]]
+  branch = "master"
   name = "github.com/gin-contrib/sse"
   packages = ["."]
   revision = "22d885f9ecc78bf4ee5d72b937e4bbcdc58e8cae"
@@ -17,25 +41,37 @@
   branch = "master"
   name = "github.com/golang/protobuf"
   packages = ["proto"]
-  revision = "5afd06f9d81a86d6e3bb7dc702d6bd148ea3ff23"
+  revision = "1e59b77b52bf8e4b449a57e6f79f21226d571845"
 
 [[projects]]
   name = "github.com/mattn/go-isatty"
   packages = ["."]
-  revision = "fc9e8d8ef48496124e79ae0df75490096eccf6fe"
-  version = "v0.0.2"
+  revision = "0360b2af4f38e8d38c7fce2a9f4e702702d73a39"
+  version = "v0.0.3"
+
+[[projects]]
+  name = "github.com/pkg/errors"
+  packages = ["."]
+  revision = "645ef00459ed84a119197bfb8d8205042c6df63d"
+  version = "v0.8.0"
 
 [[projects]]
   branch = "master"
   name = "github.com/rjeczalik/notify"
   packages = ["."]
-  revision = "88a54d914928e1faebb1c2195605dc87bd98dc27"
+  revision = "767eb674ef14b09119b2fff3601e64558d530c47"
 
 [[projects]]
   branch = "master"
   name = "github.com/shurcooL/sanitized_anchor_name"
   packages = ["."]
-  revision = "541ff5ee47f1dddf6a5281af78307d921524bcb5"
+  revision = "86672fcb3f950f35f2e675df2240550f2a50762f"
+
+[[projects]]
+  name = "github.com/sirupsen/logrus"
+  packages = ["."]
+  revision = "f006c2ac4710855cf0f916dd6b77acf6b048dc6e"
+  version = "v1.0.3"
 
 [[projects]]
   branch = "master"
@@ -47,19 +83,25 @@
   branch = "master"
   name = "github.com/ugorji/go"
   packages = ["codec"]
-  revision = "8c0409fcbb70099c748d71f714529204975f6c3f"
+  revision = "f0aa215a7d653544d39d0e27dfa10fa4b183f397"
+
+[[projects]]
+  branch = "master"
+  name = "golang.org/x/crypto"
+  packages = ["ssh/terminal"]
+  revision = "94eea52f7b742c7cbe0b03b22f0c4c8631ece122"
 
 [[projects]]
   branch = "master"
   name = "golang.org/x/sys"
-  packages = ["unix"]
-  revision = "a07a691ac871746ae690ccf3ab217363b2144531"
+  packages = ["unix","windows"]
+  revision = "8b4580aae2a0dd0c231a45d3ccb8434ff533b840"
 
 [[projects]]
   branch = "master"
   name = "golang.org/x/text"
   packages = ["internal/gen","internal/triegen","internal/ucd","transform","unicode/cldr","unicode/norm"]
-  revision = "79ab41e967c76b94c55d37134c51fc306609cffc"
+  revision = "556d234e9c5239918de4d1fe247d1fe004e71764"
 
 [[projects]]
   name = "gopkg.in/go-playground/validator.v8"
@@ -77,11 +119,11 @@
   branch = "v2"
   name = "gopkg.in/yaml.v2"
   packages = ["."]
-  revision = "eb3733d160e74a9c7e442f435eb3bea458e1d19f"
+  revision = "287cf08546ab5e7e37d55a84f7ed3fd1db036de5"
 
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "54c1af3dd2e55ce2b315549c8965ddc906574a8808bf3cbf2573fc260563ee4b"
+  inputs-digest = "16fd195c4b750f0b8239a760a0b384b280d13cd1f337dd64ebcc7b1e5ba96a1f"
   solver-name = "gps-cdcl"
   solver-version = 1

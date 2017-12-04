@@ -4,25 +4,32 @@ import (
 	"fmt"
 	"html/template"
 	"io/ioutil"
-	"log"
 	"os"
 	"path"
 	"path/filepath"
 	"sort"
 	"time"
 
-	"gopkg.in/russross/blackfriday.v2"
+	"github.com/Depado/bfchroma"
+	"github.com/alecthomas/chroma/formatters/html"
+	"github.com/pkg/errors"
+	"github.com/sirupsen/logrus"
+	bf "gopkg.in/russross/blackfriday.v2"
 	"gopkg.in/yaml.v2"
 )
 
-var renderer = blackfriday.NewHTMLRenderer(blackfriday.HTMLRendererParameters{
-	Flags: blackfriday.CommonHTMLFlags | blackfriday.TOC,
-})
+var renderer = bfchroma.NewRenderer(
+	bfchroma.WithoutAutodetect(),
+	bfchroma.ChromaOptions(html.WithLineNumbers()),
+	bfchroma.Extend(
+		bf.NewHTMLRenderer(bf.HTMLRendererParameters{
+			Flags: bf.CommonHTMLFlags | bf.TOC,
+		}),
+	),
+)
 
 func render(input []byte) []byte {
-	return blackfriday.Run(input, blackfriday.WithRenderer(renderer))
-	// return blackfriday.WithExtensions(blackfriday.CodeBlock).HtmlRenderer
-	// return blackfriday.MarkdownOptions(input, blackfriday.HtmlRenderer(flags, "", ""), blackfriday.Options{Extensions: extensions})
+	return bf.Run(input, bf.WithRenderer(renderer), bf.WithExtensions(bf.Footnotes))
 }
 
 // MPages is the map containing all the articles. The key is the slug of the article
@@ -51,15 +58,19 @@ type Page struct {
 func NewPageFromFile(fn string) (*Page, error) {
 	var err error
 	p := new(Page)
+
 	if err = p.ParseFile(fn); err != nil {
-		log.Printf("[SB] [ ERR] [%s] Could not process new file : %s\n", filepath.Base(fn), err)
-		return nil, err
+		return nil, errors.Wrap(err, "NewPageFromFile")
 	}
 	if err = p.Insert(false); err != nil {
-		log.Printf("[SB] [ ERR] [%s] Could not add new file : %s\n", filepath.Base(fn), err)
-		return nil, err
+		return nil, errors.Wrap(err, "NewPageFromFile")
 	}
-	log.Printf("[SB] [INFO] [%s] New file [/post/%s] %s\n", p.File, p.Slug, p.Title)
+
+	logrus.WithFields(logrus.Fields{
+		"file": filepath.Base(fn),
+		"url":  fmt.Sprintf("/post/%s", p.Slug),
+	}).Info("New file added")
+
 	return p, nil
 }
 
@@ -102,15 +113,19 @@ func (p *Page) UpdateFromFile(fn string) error {
 	var err error
 	old := p.Slug
 	if err = p.ParseFile(fn); err != nil {
-		log.Printf("[SB] [ ERR] [%s] Could not process modified file : %s\n", filepath.Base(fn), err)
-		return err
+		return errors.Wrap(err, "UpdateFromFile")
 	}
 	if _, ok := MPages[p.Slug]; !ok {
 		delete(MPages, old)
 		MPages[p.Slug] = p
 	}
 	sort.Sort(SPages)
-	log.Printf("[SB] [INFO] [%s] Modified [/post/%s] %s\n", p.File, p.Slug, p.Title)
+
+	logrus.WithFields(logrus.Fields{
+		"file": filepath.Base(fn),
+		"url":  fmt.Sprintf("/post/%s", p.Slug),
+	}).Info("Modified")
+
 	return nil
 }
 
@@ -122,7 +137,10 @@ func (p *Page) Pop() {
 		}
 	}
 	delete(MPages, p.Slug)
-	log.Printf("[SB] [INFO] [%s] Deleted [/post/%s] %s\n", p.File, p.Slug, p.Title)
+	logrus.WithFields(logrus.Fields{
+		"file": filepath.Base(p.File),
+		"url":  fmt.Sprintf("/post/%s", p.Slug),
+	}).Info("Removed")
 }
 
 // ParseMetadata parses the metadata on top of the markdown files. It will also
@@ -189,16 +207,31 @@ func ParseDir(dir string) error {
 		s := time.Now()
 		p := Page{}
 		if err = p.ParseFile(path.Join(dir, f.Name())); err != nil {
-			fmt.Printf("[SB] [ ERR] [% 9v] [%s] Could not process file : %s\n", time.Since(s), p.File, err)
+			logrus.WithFields(logrus.Fields{
+				"took":  time.Since(s),
+				"file":  p.File,
+				"state": "ignored",
+			}).WithError(err).Error("Couldn't process file")
 			continue
 		}
 		if err = p.Insert(true); err != nil {
-			fmt.Printf("[SB] [ ERR] [% 9v] [%s] [Ignored] Could not insert file : %s\n", time.Since(s), p.File, err)
+			logrus.WithFields(logrus.Fields{
+				"took":  time.Since(s),
+				"file":  p.File,
+				"state": "ignored",
+			}).WithError(err).Error("Couldn't insert file")
 			continue
 		}
-		fmt.Printf("[SB] [INFO] [% 9v] [%s] [/post/%s] %s\n", time.Since(s), p.File, p.Slug, p.Title)
+		logrus.WithFields(logrus.Fields{
+			"took": time.Since(s),
+			"file": p.File,
+			"url":  fmt.Sprintf("/post/%s", p.Slug),
+		}).Info("Generated page successfully")
 	}
 	sort.Sort(SPages)
-	fmt.Printf("[SB] [INFO] Generated %d pages in %v\n", len(files), time.Since(start))
+	logrus.WithFields(logrus.Fields{
+		"files": len(files),
+		"took":  time.Since(start),
+	}).Info("Generated files")
 	return nil
 }

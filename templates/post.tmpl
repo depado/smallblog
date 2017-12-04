@@ -6,7 +6,6 @@
     <title>{{ .post.Title }}</title>
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet" type="text/css">
-    <link href="/static/prism.css" rel="stylesheet" />
     <link href="/static/grids-responsive-min.css" rel="stylesheet" />
     <link href="/static/style.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
@@ -31,21 +30,12 @@
             <div id="gitalk-container"></div>
         </div>
     </div>
-    <script src="/static/prism.js"></script>
-    <script src="/static/konami.js"></script>
     <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
     <script>
         var tags = ['Gitalk']
         {{ range .post.Tags }}
         tags.push('{{ . }}');
         {{ end }}
-        var easter_egg = new Konami(function() {
-            var fileref = document.createElement("link");
-            fileref.setAttribute("rel", "stylesheet");
-            fileref.setAttribute("type", "text/css");
-            fileref.setAttribute("href", "/static/term.css");
-            document.getElementsByTagName("head")[0].appendChild(fileref)
-        });
         const gitalk = new Gitalk({
             clientID: '7261e6111d20620adb79',
             clientSecret: 'fff74aa46c0f2ad58b97fbaa19087cf4a0940654',
