@@ -6,6 +6,15 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
+type gitalk struct {
+	Enabled      bool     `yaml:"enabled"`
+	ClientID     string   `yaml:"client_id"`
+	ClientSecret string   `yaml:"client_secret"`
+	Repo         string   `yaml:"repo"`
+	Owner        string   `yaml:"owner"`
+	Admin        []string `yaml:"admin"`
+}
+
 type conf struct {
 	Host        string `yaml:"host"`
 	Port        int    `yaml:"port"`
@@ -13,6 +22,7 @@ type conf struct {
 	Description string `yaml:"description"`
 	PagesDir    string `yaml:"pages_dir"`
 	Debug       bool   `yaml:"debug"`
+	Gitalk      gitalk `yaml:"gitalk"`
 }
 
 // C is the global conf

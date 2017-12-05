@@ -2,10 +2,10 @@
 
 
 [[projects]]
-  branch = "master"
   name = "github.com/Depado/bfchroma"
   packages = ["."]
-  revision = "255181d49ba377007c4e495edeee26e7b858f761"
+  revision = "7130586113d8f0b1dff95f1d3ff2c94cc50efdb8"
+  version = "v1.0.0"
 
 [[projects]]
   name = "github.com/alecthomas/chroma"
@@ -62,6 +62,12 @@
   revision = "767eb674ef14b09119b2fff3601e64558d530c47"
 
 [[projects]]
+  name = "github.com/russross/blackfriday"
+  packages = ["."]
+  revision = "cadec560ec52d93835bf2f15bd794700d3a2473b"
+  version = "v2.0.0"
+
+[[projects]]
   branch = "master"
   name = "github.com/shurcooL/sanitized_anchor_name"
   packages = ["."]
@@ -101,7 +107,7 @@
   branch = "master"
   name = "golang.org/x/text"
   packages = ["internal/gen","internal/triegen","internal/ucd","transform","unicode/cldr","unicode/norm"]
-  revision = "556d234e9c5239918de4d1fe247d1fe004e71764"
+  revision = "57961680700a5336d15015c8c50686ca5ba362a4"
 
 [[projects]]
   name = "gopkg.in/go-playground/validator.v8"
@@ -124,6 +130,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "16fd195c4b750f0b8239a760a0b384b280d13cd1f337dd64ebcc7b1e5ba96a1f"
+  inputs-digest = "fb4dfb2e8ba52a1d4b5fa89eb3f0012079110068a060d2b377ce15e01ee25b80"
   solver-name = "gps-cdcl"
   solver-version = 1

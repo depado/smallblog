@@ -20,7 +20,7 @@ func main() {
 		log.Fatal(err)
 	}
 	// Initial posts parsing
-	if err = models.ParseDir("pages"); err != nil {
+	if err = models.ParseDir(conf.C.PagesDir); err != nil {
 		log.Fatal(err)
 	}
 	// Watching filesystem

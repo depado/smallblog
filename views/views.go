@@ -36,7 +36,7 @@ func PostsByTag(c *gin.Context) {
 func Post(c *gin.Context) {
 	slug := c.Param("slug")
 	if val, ok := models.MPages[slug]; ok {
-		c.HTML(http.StatusOK, "post.tmpl", gin.H{"post": val})
+		c.HTML(http.StatusOK, "post.tmpl", gin.H{"post": val, "gitalk": conf.C.Gitalk})
 	} else {
 		c.String(http.StatusNotFound, "404 not found")
 	}

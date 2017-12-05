@@ -10,27 +10,10 @@ import (
 	"sort"
 	"time"
 
-	"github.com/Depado/bfchroma"
-	"github.com/alecthomas/chroma/formatters/html"
 	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
-	bf "gopkg.in/russross/blackfriday.v2"
 	"gopkg.in/yaml.v2"
 )
-
-var renderer = bfchroma.NewRenderer(
-	bfchroma.WithoutAutodetect(),
-	bfchroma.ChromaOptions(html.WithLineNumbers()),
-	bfchroma.Extend(
-		bf.NewHTMLRenderer(bf.HTMLRendererParameters{
-			Flags: bf.CommonHTMLFlags | bf.TOC,
-		}),
-	),
-)
-
-func render(input []byte) []byte {
-	return bf.Run(input, bf.WithRenderer(renderer), bf.WithExtensions(bf.Footnotes|bf.FencedCode))
-}
 
 // MPages is the map containing all the articles. The key is the slug of the article
 // for low complexity access when querying a slug.
