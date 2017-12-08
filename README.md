@@ -1,5 +1,12 @@
 # Smallblog
 
+![Go Version](https://img.shields.io/badge/go-1.8-brightgreen.svg)
+![Go Version](https://img.shields.io/badge/go-1.9-brightgreen.svg)
+[![Go Report Card](https://goreportcard.com/badge/github.com/Depado/smallblog)](https://goreportcard.com/report/github.com/Depado/smallblog)
+[![Build Status](https://drone.depado.eu/api/badges/Depado/smallblog/status.svg)](https://drone.depado.eu/Depado/smallblog)
+[![codecov](https://codecov.io/gh/Depado/smallblog/branch/master/graph/badge.svg)](https://codecov.io/gh/Depado/smallblog)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/Depado/smallblog/blob/master/LICENSE)
+
 A simple self-hosted markdown flat files blog
 
 ## What is Smallblog
