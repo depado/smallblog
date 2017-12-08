@@ -85,10 +85,7 @@ func (p *Page) ParseFile(fn string) error {
 	}
 	p.Raw = string(b)
 	p.ParseMarkdown(b)
-	if err = p.ParseMetadata(h); err != nil {
-		return err
-	}
-	return nil
+	return p.ParseMetadata(h)
 }
 
 // UpdateFromFile parses the file once more
