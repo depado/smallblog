@@ -206,7 +206,7 @@ func ParseDir(dir string) error {
 			"took": time.Since(s),
 			"file": p.File,
 			"url":  fmt.Sprintf("/post/%s", p.Slug),
-		}).Info("Generated page successfully")
+		}).Debug("Page generated")
 	}
 	sort.Sort(SPages)
 	logrus.WithFields(logrus.Fields{

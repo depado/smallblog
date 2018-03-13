@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/spf13/viper"
 
 	"github.com/Depado/smallblog/conf"
 	"github.com/Depado/smallblog/models"
@@ -23,9 +24,10 @@ func PostsByTag(c *gin.Context) {
 	}
 	if len(res) > 0 {
 		c.HTML(http.StatusOK, "index.tmpl", gin.H{
-			"posts": res,
-			"info":  conf.C,
-			"extra": fmt.Sprintf("Posts tagged with '%s' tag", tag),
+			"posts":       res,
+			"title":       viper.GetString("blog.title"),
+			"description": viper.GetString("blog.description"),
+			"extra":       fmt.Sprintf("Posts tagged with '%s' tag", tag),
 		})
 	} else {
 		c.String(http.StatusNotFound, "404 no posts found with this tag")
@@ -36,7 +38,7 @@ func PostsByTag(c *gin.Context) {
 func Post(c *gin.Context) {
 	slug := c.Param("slug")
 	if val, ok := models.MPages[slug]; ok {
-		c.HTML(http.StatusOK, "post.tmpl", gin.H{"post": val, "gitalk": conf.C.Gitalk})
+		c.HTML(http.StatusOK, "post.tmpl", gin.H{"post": val, "gitalk": conf.GetGitalk()})
 	} else {
 		c.String(http.StatusNotFound, "404 not found")
 	}
@@ -54,5 +56,9 @@ func RawPost(c *gin.Context) {
 
 // Index is the view to list all posts.
 func Index(c *gin.Context) {
-	c.HTML(http.StatusOK, "index.tmpl", gin.H{"posts": models.SPages, "info": conf.C})
+	c.HTML(http.StatusOK, "index.tmpl", gin.H{
+		"posts":       models.SPages,
+		"title":       viper.GetString("blog.title"),
+		"description": viper.GetString("blog.description"),
+	})
 }

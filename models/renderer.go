@@ -2,7 +2,6 @@ package models
 
 import (
 	"github.com/Depado/bfchroma"
-	"github.com/alecthomas/chroma/formatters/html"
 	bf "github.com/russross/blackfriday"
 )
 
@@ -19,14 +18,10 @@ func render(input []byte) []byte {
 		bf.WithRenderer(
 			bfchroma.NewRenderer(
 				bfchroma.WithoutAutodetect(),
-				bfchroma.ChromaOptions(
-					html.WithLineNumbers(),
-				),
 				bfchroma.Extend(
-					bf.NewHTMLRenderer(bf.HTMLRendererParameters{
-						Flags: flags,
-					}),
+					bf.NewHTMLRenderer(bf.HTMLRendererParameters{Flags: flags}),
 				),
+				// bfchroma.ChromaOptions(html.WithClasses()),
 			),
 		),
 		bf.WithExtensions(exts),

@@ -38,6 +38,19 @@ a {
 a:hover {
     color: #444;
 }
+.md a {
+    color: #07a;
+}
+.md a:hover {
+    text-decoration: underline;
+}
+.md nav a {
+    color: grey;
+}
+.md nav a:hover {
+    color: #444;
+    text-decoration: none;
+}
 h1, h2, h3 {
     line-height: 1.2;
     margin-top: 50px;
@@ -78,6 +91,8 @@ pre {
     margin: .5em 0;
     overflow: auto;
     border-radius: 0.3em;
+    -moz-tab-size: 2em;
+    tab-size: 2em;
 }
 code {
     font-family: 'Roboto Mono';
