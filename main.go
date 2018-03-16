@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
+	"path/filepath"
 
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
@@ -37,6 +39,11 @@ func main() {
 	r := gin.Default()
 	r.LoadHTMLGlob("templates/*.tmpl")
 	r.Static("/static", "./assets")
+	// Assets for pages
+	ad := filepath.Join(viper.GetString("blog.pages"), "assets")
+	if _, err := os.Stat(ad); err == nil {
+		r.Static("/assets", ad)
+	}
 
 	// Routes Definition
 	r.GET("/", views.Index)

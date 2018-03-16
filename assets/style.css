@@ -26,10 +26,13 @@ table {
 }
 img {
     max-width: 100%;
-    margin-right: auto;
-    margin-left: auto;
+    margin: 30px auto 30px auto;
     height: auto;
     display: block;
+}
+iframe {
+    display: block;
+    margin: 30px auto 30px auto;
 }
 a {
     text-decoration: none;

@@ -184,6 +184,9 @@ func ParseDir(dir string) error {
 	SPages = make(pageSlice, 0, len(files))
 
 	for _, f := range files {
+		if f.IsDir() {
+			continue
+		}
 		s := time.Now()
 		p := Page{}
 		if err = p.ParseFile(path.Join(dir, f.Name())); err != nil {
