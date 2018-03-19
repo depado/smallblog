@@ -83,14 +83,17 @@ func setupLogger() {
 
 // GetGitalk returns a gitalk struct
 func GetGitalk() Gitalk {
-	var g Gitalk
-	sub := viper.Sub("gitalk")
-	if err := sub.Unmarshal(&g); err != nil {
-		logrus.WithError(err).Error("Couldn't unmarshal Gitalk struct")
+	return Gitalk{
+		Enabled:      viper.GetBool("gitalk.enabled"),
+		ClientID:     viper.GetString("gitalk.client_id"),
+		ClientSecret: viper.GetString("gitalk.client_secret"),
+		Repo:         viper.GetString("gitalk.repo"),
+		Owner:        viper.GetString("gitalk.owner"),
+		Admin:        viper.GetStringSlice("gitalk.admins"),
 	}
-	return g
 }
 
+// Gitalk is a struct holding all the information necessary to make gitalk work
 type Gitalk struct {
 	Enabled      bool     `yaml:"enabled"`
 	ClientID     string   `yaml:"client_id"`
