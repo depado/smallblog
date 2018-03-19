@@ -16,7 +16,7 @@ func Watch(dir string) {
 	for _, p := range models.SPages {
 		m[p.File] = p
 	}
-	c := make(chan notify.EventInfo, 1)
+	c := make(chan notify.EventInfo, 100)
 
 	if err := notify.Watch(dir, c, notify.Remove, notify.Write, notify.InMovedTo, notify.InMovedFrom); err != nil {
 		log.Fatal(err)
