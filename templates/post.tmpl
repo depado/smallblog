@@ -22,6 +22,7 @@
         </div>
         <div class="pure-u-1 pure-u-md-1-2">
             <div class="head">
+                {{ if .post.Banner }}<img src="{{ .post.Banner }}" alt="banner">{{ end }}
                 <h1 class="title">{{ .post.Title }}</h1> <br />{{ if .post.Description }}<i>{{ .post.Description }}</i>{{ end }}
                 <br />
                 <br /> {{ range .post.Tags }}<a href="/tag/{{ . }}"><span class="sm-tag">{{ . }}</span></a>{{ end }}

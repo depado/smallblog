@@ -30,6 +30,7 @@ type Page struct {
 	Title       string
 	Description string
 	Author      string
+	Banner      string
 	Date        time.Time
 	DateFmt     string
 	Tags        []string
@@ -143,6 +144,7 @@ func (p *Page) ParseMetadata(h []byte) error {
 	p.Description = m.Description
 	p.Date = t
 	p.DateFmt = t.Format("2006/01/02 15:04")
+	p.Banner = m.Banner
 	p.Tags = m.Tags
 	p.Author = m.Author
 	p.Title = m.Title

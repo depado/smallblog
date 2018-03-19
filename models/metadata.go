@@ -10,6 +10,7 @@ import (
 type meta struct {
 	Title       string   `yaml:"title"` // Mandatory
 	Description string   `yaml:"description"`
+	Banner      string   `yaml:"banner"`
 	Author      string   `yaml:"author"`
 	Slug        string   `yaml:"slug"`
 	Tags        []string `yaml:"tags"`
