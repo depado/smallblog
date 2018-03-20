@@ -81,6 +81,9 @@ cite {
     font-style: normal;
 }
 
+nav > ul > li {
+    padding-top: 0.6em;
+}
 /* Code related stuff */
 
 code[class*="language-"], pre[class*="language-"] {

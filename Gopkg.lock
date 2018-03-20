@@ -68,6 +68,7 @@
     ".",
     "hcl/ast",
     "hcl/parser",
+    "hcl/printer",
     "hcl/scanner",
     "hcl/strconv",
     "hcl/token",
@@ -167,8 +168,8 @@
 [[projects]]
   name = "github.com/spf13/viper"
   packages = ["."]
-  revision = "25b30aa063fc18e48662b86996252eabdcf2f0c7"
-  version = "v1.0.0"
+  revision = "b5e8006cbee93ec955a89ab31e0e3ce3204f3736"
+  version = "v1.0.2"
 
 [[projects]]
   branch = "master"
@@ -186,7 +187,7 @@
   branch = "master"
   name = "golang.org/x/crypto"
   packages = ["ssh/terminal"]
-  revision = "182114d582623c1caa54f73de9c7224e23a48487"
+  revision = "c3a3ad6d03f7a915c0f7e194b7152974bb73d287"
 
 [[projects]]
   branch = "master"
@@ -195,7 +196,7 @@
     "unix",
     "windows"
   ]
-  revision = "8c0ece68c28377f4c326d85b94f8df0dace46f80"
+  revision = "7ceb54c8418b8f9cdf0177b511d5cbb06e9fae39"
 
 [[projects]]
   name = "golang.org/x/text"
