@@ -34,6 +34,7 @@ func Load() {
 	pflag.String("blog.title", "", "your blog's title")
 	pflag.String("blog.description", "", "your blog's description")
 	pflag.String("blog.pages", "pages/", "directory in which articles are stored")
+	pflag.String("blog.code.style", "monokai", "style of the code sections")
 
 	if err := viper.BindPFlags(pflag.CommandLine); err != nil {
 		logrus.WithError(err).Fatal("Couldn't bind flags")
@@ -55,6 +56,7 @@ func Load() {
 	viper.SetDefault("server.host", "127.0.0.1")
 	viper.SetDefault("server.port", 8080)
 	viper.SetDefault("blog.pages", "pages/")
+	viper.SetDefault("blog.code.style", "monokai")
 
 	// Parsing flags
 	pflag.Parse()

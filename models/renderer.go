@@ -3,6 +3,7 @@ package models
 import (
 	"github.com/Depado/bfchroma"
 	bf "github.com/russross/blackfriday"
+	"github.com/spf13/viper"
 )
 
 var exts = bf.NoIntraEmphasis | bf.Tables | bf.FencedCode | bf.Autolink |
@@ -21,7 +22,7 @@ func render(input []byte) []byte {
 				bfchroma.Extend(
 					bf.NewHTMLRenderer(bf.HTMLRendererParameters{Flags: flags}),
 				),
-				// bfchroma.ChromaOptions(html.WithClasses()),
+				bfchroma.Style(viper.GetString("blog.code.style")),
 			),
 		),
 		bf.WithExtensions(exts),
