@@ -23,19 +23,7 @@ func Execute() {
 }
 
 func init() {
-	cobra.OnInitialize(setupLogger)
-
-	// Environment variables
-	viper.SetEnvPrefix("smallblog")
-	viper.AutomaticEnv()
-
-	// Configuration file
-	viper.SetConfigName("conf")
-	viper.AddConfigPath(".")
-	viper.AddConfigPath("/config/")
-	if err := viper.ReadInConfig(); err != nil {
-		logrus.Warn("No configuration file found")
-	}
+	cobra.OnInitialize(initialize)
 
 	// Global flags
 	rootCmd.PersistentFlags().String("log.level", "info", "one of debug, info, warn, error or fatal")
@@ -52,7 +40,18 @@ func init() {
 	viper.BindPFlags(rootCmd.PersistentFlags())
 }
 
-func setupLogger() {
+func initialize() {
+	// Environment variables
+	viper.SetEnvPrefix("smallblog")
+	viper.AutomaticEnv()
+
+	// Configuration file
+	viper.SetConfigName("conf")
+	viper.AddConfigPath(".")
+	viper.AddConfigPath("/config/")
+	if err := viper.ReadInConfig(); err != nil {
+		logrus.Warn("No configuration file found")
+	}
 	lvl := viper.GetString("log.level")
 	l, err := logrus.ParseLevel(lvl)
 	if err != nil {
