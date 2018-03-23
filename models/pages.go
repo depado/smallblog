@@ -130,7 +130,7 @@ func (p *Page) ParseMetadata(h []byte) error {
 	var err error
 	var t time.Time
 
-	m := meta{}
+	m := MetaData{}
 	if err = yaml.Unmarshal(h, &m); err != nil {
 		return err
 	}

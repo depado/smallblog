@@ -38,23 +38,116 @@ updated.
 ## TODO
 
 - [] Add a search engine
-- [] Gitalk configuration
-- [] Tutorials
-- [] New release ?
+
+## Tutorial
+
+First of all you'll need a `pages` directory where you'll store all your
+articles, so let's create that.
+
+```sh
+$ mkdir pages
+```
+
+Without configuration, smallblog will try to find a `pages/` directory in your 
+current working directory. So let's create your very first article, and for that 
+we'll be using the `new` command :
+
+```sh
+$ mkdir pages
+$ smallblog new first-article --title "My very first Smallblog article"
+INFO[0000] Successfully generated new article            file=pages/first-article.md
+```
+
+This commands takes a single argument : The name of the file this command will
+write. It will automatically append the `.md` suffix if you don't specify it
+and will place it in the configured (or default) `pages` directory.
+
+To check if this is working, simply run the following command :
+
+```sh
+$ smallblog serve                
+INFO[0000] Generated files                               files=1 took="201.207µs"
+INFO[0000] Starting server                               host=127.0.0.1 port=8080
+```
+
+That's it, you successfully generated and served your first article.
 
 ## Configure
 
-Put a `conf.yml` file next to your `smallblog` binary. Here are the options you
-can customize
+You can add a `conf.yml` or `conf.json` in your working directory to make your
+configuration persistent. You may have noticed the warning about the
+configuration file that wasn't found earlier. Here is an example `conf.yml`
+file :
 
-| Key         | Description                                                               | Default     |
-| ----------- | ------------------------------------------------------------------------- | ----------- |
-| host        | Interface on which the server should listen.                              | "127.0.0.1" |
-| port        | Port on which the server should listen.                                   | 8080        |
-| debug       | Activates the router's debug mode.                                        | false       |
-| pages_dir   | Local or absolute path to the directory in which your articles are stored | "pages"     |
-| title       | Blog title (front page)                                                   | ""          |
-| description | Blog Description (front page)                                             | ""          |
+```yaml
+server:
+  host: 127.0.0.1
+  port: 8080
+  debug: false
+blog:
+  title: Depado's Blog
+  description: A simple blog from a developer who does things.
+  pages: pages/
+  code:
+    style: monokai
+gitalk:
+  enabled: true
+  client_id: xxxxx
+  client_secret: xxxx
+  repo: articles
+  owner: Depado
+  admins: [Depado]
+log:
+  format: text
+  level: info
+  line: true
+```
+
+Explanations of these fields will follow. Just note that all these values
+can be customized using command line flags which have a higher priority than
+the configuration file. For example you might want to turn on the `debug` mode
+of the server without changing your configuration file. In which case you can
+just pass the flag `--server.debug` when starting smallblog.
+
+### Server
+
+Server related configuration. Defines on which host/port the server should
+listen as well as debug mode.
+
+| Field   | Description                            | Default     |
+|---------|----------------------------------------|-------------|
+| `host`  | Host on which the server should listen | "127.0.0.1" |
+| `port`  | Port on which the server should listen | 8080        |
+| `debug` | Enable debug mode for the router       | false       |
+
+The `debug` value is especially useful if you modify the HTML templates of
+smallblog since you won't need a restart of the service to see your changes
+applied. 
+
+### Blog
+
+General blog configuration such as the blog title, description, pages directory
+and code highlighting style.
+
+| Field         | Description                              | Default   |
+|---------------|------------------------------------------|-----------|
+| `title`       | Title of your blog                       | -         |
+| `description` | Description of your blog                 | -         |
+| `pages`       | Directory where your articles are stored | "pages/"  |
+| `code.style`  | Style of the syntax highlighting         | "monokai" |
+
+### Gitalk
+
+Please see the documentation of [gitalk](https://github.com/gitalk/gitalk) to
+see how you can configure gitalk for smallblog.
+
+### Log
+
+| Field    | Description                                                                                                | Default |
+|----------|------------------------------------------------------------------------------------------------------------|---------|
+| `format` | Log format, either "text" or "json"                                                                        | "text"  |
+| `level`  | Defines the minimum level of logging that is displayed. One of "debug", "info", "warn", "error" or "fatal" | "info"  |
+| `line`   | Show where the log happened in the source code (filename, line number)                                     | false   |
 
 ## Write Posts
 
@@ -70,6 +163,7 @@ Here is the list of yaml values you can fill
 | title       | The title of your article.                                                            | **Yes**   |
 | description | The description of your article (sub-title)                                           | No        |
 | slug        | The link you want for your article. If left empty, will be generated from title.      | No        |
+| banner      | URL of the banner (image at the top level of your article)                            | No        |
 | author      | Author of the article                                                                 | No        |
 | date        | The date of writing/publication of your article.                                      | **Yes**   |
 | tags        | A list of tags you want to apply on the article (useless right now, but still pretty) | No        |
@@ -98,14 +192,14 @@ That's how you tell the parser that you are done with yaml format.
 This article will be parsed, and available at `example.com/post/first-article`.
 It will also be listed at `example.com/`.
 
+
 ## Filesystem Monitoring
 
 The directory you define in your `conf.yml` file is constantly watched by the
 server. Which means several things :
  - If you create a new file, it will be parsed and added to your site.
    (Also if you `mv` a file inside the directory)
- - If you modify an exisiting file, it will be parsed and modified on your site
-   if necessary (e.g if the slug changes).
+ - If you modify an exisiting file, it will be parsed and modified.
  - If you delete an existing file, the article will be removed. (Also if you
    `mv` a file out of the directory)
 

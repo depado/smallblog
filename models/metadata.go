@@ -6,8 +6,8 @@ import (
 	"github.com/stvp/slug"
 )
 
-// meta is a struct that helps the unmarshalling of the yaml header in markdown files.
-type meta struct {
+// MetaData is a struct that helps the unmarshalling of the yaml header in markdown files.
+type MetaData struct {
 	Title       string   `yaml:"title"` // Mandatory
 	Description string   `yaml:"description"`
 	Banner      string   `yaml:"banner"`
@@ -17,7 +17,8 @@ type meta struct {
 	Date        string   `yaml:"date"` // Mandatory
 }
 
-func (m *meta) Validate() error {
+// Validate validates that the metada is valid
+func (m *MetaData) Validate() error {
 	if m.Date == "" {
 		return fmt.Errorf("parser: The `date` field is mandatory")
 	}
@@ -27,7 +28,9 @@ func (m *meta) Validate() error {
 	return nil
 }
 
-func (m *meta) GenerateSlug() string {
+// GenerateSlug will generate a slug if necessary, based on the title of the
+// article. Otherwise it will return the slug set in the metadata
+func (m *MetaData) GenerateSlug() string {
 	slug.Replacement = '-'
 	if m.Slug == "" {
 		return slug.Clean(m.Title)

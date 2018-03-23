@@ -34,7 +34,7 @@ func init() {
 	viper.AddConfigPath(".")
 	viper.AddConfigPath("/config/")
 	if err := viper.ReadInConfig(); err != nil {
-		logrus.WithError(err).Error("Couldn't read configuration file(s)")
+		logrus.Warn("No configuration file found")
 	}
 
 	// Global flags
