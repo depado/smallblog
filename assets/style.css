@@ -6,19 +6,14 @@ html, button, input, select, textarea,
 }
 .draft {
     float: right;
-    border: 1px;
-    border-top-style: none;
-    border-right-style: none;
-    border-bottom-style: none;
-    border-left-style: none;
-    border-width: 1px;
+    color: white;
+    background-color: grey;
+    border-color: grey;
     border-style: solid;
-    border-radius: 5px;
-    padding-left: 2px;
-    padding-right: 2px;
-    padding-top: 0px;
-    padding-bottom: 0px;
-    margin: 0px;
+    border-width: 1px;
+    border-radius: 3px;
+    padding-left: 6px;
+    padding-right: 6px;
     font-size: 15px;
 }
 body {

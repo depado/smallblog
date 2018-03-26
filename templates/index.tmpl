@@ -22,7 +22,7 @@
         <div class="pure-u-1 pure-u-md-1-2">
             {{ if .extra }}<b>{{ .extra }}</b><br /><br />{{ end }}
             {{ range .posts }}
-                    <a href="/post/{{ .Slug }}">{{ .Title }}</a>{{ if .Draft }}<span class="draft"><i>Draft</i></span>{{ end }}<br />
+                    <a href="/post/{{ .Slug }}">{{ .Title }}</a>{{ if .Draft }}<span class="draft">Draft</span>{{ end }}<br />
                     {{ range .Tags }}<a href="/tag/{{ . }}"><span class="home-sm-tag">{{ . }}</span></a>{{ end }}
                     <span style="float: right;">{{ .DateFmt }}</span><br />
                     <hr style="background: #e3e1e1;">
