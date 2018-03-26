@@ -4,6 +4,23 @@ html, button, input, select, textarea,
 .pure-g [class *= "pure-u"] {
     font-family: 'Roboto', serif;
 }
+.draft {
+    float: right;
+    border: 1px;
+    border-top-style: none;
+    border-right-style: none;
+    border-bottom-style: none;
+    border-left-style: none;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 5px;
+    padding-left: 2px;
+    padding-right: 2px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    margin: 0px;
+    font-size: 15px;
+}
 body {
     font-family: 'Roboto', serif;
     text-align: justify;

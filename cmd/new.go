@@ -50,6 +50,7 @@ var newCmd = &cobra.Command{
 			Author:      viper.GetString("author"),
 			Title:       viper.GetString("title"),
 			Description: viper.GetString("description"),
+			Draft:       true,
 		}
 		o.Slug = o.GenerateSlug()
 

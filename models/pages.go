@@ -10,6 +10,8 @@ import (
 	"sort"
 	"time"
 
+	"github.com/spf13/viper"
+
 	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
 	"gopkg.in/yaml.v2"
@@ -36,6 +38,7 @@ type Page struct {
 	Tags        []string
 	File        string
 	Slug        string
+	Draft       bool
 }
 
 // NewPageFromFile parses a file, inserts it in the map and slice, and returns a *Page instance
@@ -148,6 +151,7 @@ func (p *Page) ParseMetadata(h []byte) error {
 	p.Tags = m.Tags
 	p.Author = m.Author
 	p.Title = m.Title
+	p.Draft = m.Draft
 	return nil
 }
 
@@ -161,6 +165,10 @@ func (p *Page) ParseMarkdown(b []byte) {
 // it's not a batch insertion. (A batch insertion means after all the inserts,
 // SPages will be sorted manually)
 func (p *Page) Insert(batch bool) error {
+	if p.Draft && !viper.GetBool("blog.draft") {
+		logrus.WithFields(logrus.Fields{"file": p.File, "state": "ignored"}).Info("Draft")
+		return nil
+	}
 	if val, ok := MPages[p.Slug]; ok {
 		return fmt.Errorf("Two pages have the same slug : %s and %s both have %s", p.File, val.File, p.Slug)
 	}

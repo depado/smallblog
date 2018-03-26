@@ -15,6 +15,7 @@ type MetaData struct {
 	Slug        string   `yaml:"slug"`
 	Tags        []string `yaml:"tags"`
 	Date        string   `yaml:"date"` // Mandatory
+	Draft       bool     `yaml:"draft"`
 }
 
 // Validate validates that the metada is valid
