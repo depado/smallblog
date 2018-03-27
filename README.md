@@ -54,18 +54,20 @@ we'll be using the `new` command :
 
 ```sh
 $ mkdir pages
-$ smallblog new first-article --title "My very first Smallblog article"
+$ smallblog new first-article --title "My very first Smallblog article" --draft
 INFO[0000] Successfully generated new article            file=pages/first-article.md
 ```
 
 This commands takes a single argument : The name of the file this command will
 write. It will automatically append the `.md` suffix if you don't specify it
-and will place it in the configured (or default) `pages` directory.
+and will place it in the configured (or default) `pages` directory. Also we're
+specifying that this article is a draft. A draft can only be visible if the
+server was started with the `blog.draft` is set to true.
 
 To check if this is working, simply run the following command :
 
 ```sh
-$ smallblog serve                
+$ smallblog serve --blog.draft                
 INFO[0000] Generated files                               files=1 took="201.207µs"
 INFO[0000] Starting server                               host=127.0.0.1 port=8080
 ```
@@ -90,6 +92,7 @@ blog:
   pages: pages/
   code:
     style: monokai
+  draft: true
 gitalk:
   enabled: true
   client_id: xxxxx
@@ -129,12 +132,13 @@ applied.
 General blog configuration such as the blog title, description, pages directory
 and code highlighting style.
 
-| Field         | Description                              | Default   |
-|---------------|------------------------------------------|-----------|
-| `title`       | Title of your blog                       | -         |
-| `description` | Description of your blog                 | -         |
-| `pages`       | Directory where your articles are stored | "pages/"  |
-| `code.style`  | Style of the syntax highlighting         | "monokai" |
+| Field         | Description                               | Default   |
+|---------------|-------------------------------------------|-----------|
+| `title`       | Title of your blog                        | -         |
+| `description` | Description of your blog                  | -         |
+| `pages`       | Directory where your articles are stored  | "pages/"  |
+| `code.style`  | Style of the syntax highlighting          | "monokai" |
+| `draft`       | Display articles that are marked as draft | false     |
 
 ### Gitalk
 
@@ -177,9 +181,11 @@ If any of the two mandatory values (`date` and `title`) are omitted, the parser 
 ```
 title: First Article
 description: The reasons I made SmallBlog
+banner: ""
 slug: first-article
 author: Depado
 date: 2016-05-06 11:22:00
+draft: false
 tags:
     - inspiration
     - dev
@@ -191,7 +197,6 @@ That's how you tell the parser that you are done with yaml format.
 
 This article will be parsed, and available at `example.com/post/first-article`.
 It will also be listed at `example.com/`.
-
 
 ## Filesystem Monitoring
 

@@ -50,7 +50,7 @@ var newCmd = &cobra.Command{
 			Author:      viper.GetString("author"),
 			Title:       viper.GetString("title"),
 			Description: viper.GetString("description"),
-			Draft:       true,
+			Draft:       viper.GetBool("draft"),
 		}
 		o.Slug = o.GenerateSlug()
 
@@ -68,5 +68,6 @@ func init() {
 	newCmd.Flags().String("slug", "", "slug of the article")
 	newCmd.Flags().String("author", "", "author of the article")
 	newCmd.Flags().String("banner", "", "banner URL of the article")
+	newCmd.Flags().Bool("draft", false, "set the status of the article to draft")
 	viper.BindPFlags(newCmd.Flags())
 }
