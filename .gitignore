@@ -29,3 +29,4 @@ pages/
 conf.yml
 releases
 vendor
+coverage.txt
