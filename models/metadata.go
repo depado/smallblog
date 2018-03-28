@@ -11,11 +11,25 @@ type MetaData struct {
 	Title       string   `yaml:"title"` // Mandatory
 	Description string   `yaml:"description"`
 	Banner      string   `yaml:"banner"`
-	Author      string   `yaml:"author"`
+	Author      *Author  `yaml:"author,omitempty"`
 	Slug        string   `yaml:"slug"`
 	Tags        []string `yaml:"tags"`
 	Date        string   `yaml:"date"` // Mandatory
 	Draft       bool     `yaml:"draft"`
+}
+
+// Author represents the author of a single article
+type Author struct {
+	Name    string `yaml:"name"`
+	Twitter string `yaml:"twitter"`
+	Site    string `yaml:"site"`
+	Github  string `yaml:"github"`
+	Avatar  string `yaml:"avatar"`
+}
+
+// IsEmpty checks if all the fields of an Author are blank
+func (a Author) IsEmpty() bool {
+	return a.Name == "" && a.Twitter == "" && a.Site == "" && a.Github == "" && a.Avatar == ""
 }
 
 // Validate validates that the metada is valid

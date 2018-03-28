@@ -31,7 +31,7 @@ type Page struct {
 	Markdown    template.HTML
 	Title       string
 	Description string
-	Author      string
+	Author      *Author
 	Banner      string
 	Date        time.Time
 	DateFmt     string
@@ -39,6 +39,22 @@ type Page struct {
 	File        string
 	Slug        string
 	Draft       bool
+}
+
+var globalAuthor *Author
+
+// GetGlobalAuthor retrieves the author configured in the configuration file
+func GetGlobalAuthor() *Author {
+	if globalAuthor == nil {
+		globalAuthor = &Author{
+			Name:    viper.GetString("blog.author.name"),
+			Github:  viper.GetString("blog.author.github"),
+			Site:    viper.GetString("blog.author.site"),
+			Twitter: viper.GetString("blog.author.twitter"),
+			Avatar:  viper.GetString("blog.author.avatar"),
+		}
+	}
+	return globalAuthor
 }
 
 // NewPageFromFile parses a file, inserts it in the map and slice, and returns a *Page instance
@@ -149,7 +165,11 @@ func (p *Page) ParseMetadata(h []byte) error {
 	p.DateFmt = t.Format("2006/01/02 15:04")
 	p.Banner = m.Banner
 	p.Tags = m.Tags
-	p.Author = m.Author
+	if m.Author != nil {
+		p.Author = m.Author
+	} else {
+		p.Author = GetGlobalAuthor()
+	}
 	p.Title = m.Title
 	p.Draft = m.Draft
 	return nil

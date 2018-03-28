@@ -25,6 +25,12 @@
   revision = "cbb64ac3d964b81592e64f957ad53df015803288"
 
 [[projects]]
+  name = "github.com/davecgh/go-spew"
+  packages = ["spew"]
+  revision = "346938d642f2ec3594ed81d874461961cd0faa76"
+  version = "v1.1.0"
+
+[[projects]]
   name = "github.com/dlclark/regexp2"
   packages = [
     ".",
@@ -95,12 +101,6 @@
   packages = ["."]
   revision = "0360b2af4f38e8d38c7fce2a9f4e702702d73a39"
   version = "v0.0.3"
-
-[[projects]]
-  branch = "master"
-  name = "github.com/mitchellh/go-homedir"
-  packages = ["."]
-  revision = "b8bc1bf767474819792c23f32d8286a45736f1c6"
 
 [[projects]]
   branch = "master"
@@ -205,7 +205,7 @@
   branch = "master"
   name = "golang.org/x/crypto"
   packages = ["ssh/terminal"]
-  revision = "80db560fac1fb3e6ac81dbc7f8ae4c061f5257bd"
+  revision = "88942b9c40a4c9d203b82b3731787b672d6e809b"
 
 [[projects]]
   branch = "master"
@@ -214,7 +214,7 @@
     "unix",
     "windows"
   ]
-  revision = "c488ab1dd8481ef762f96a79a9577c27825be697"
+  revision = "13d03a9a82fba647c21a0ef8fba44a795d0f0835"
 
 [[projects]]
   name = "golang.org/x/text"
@@ -242,14 +242,14 @@
   version = "v2.0.0"
 
 [[projects]]
+  branch = "v2"
   name = "gopkg.in/yaml.v2"
   packages = ["."]
-  revision = "7f97868eec74b32b0982dd158a51a446d1da7eb5"
-  version = "v2.1.1"
+  revision = "4fc5987536ef307a24ca299aee7ae301cde3d221"
 
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "faa92ee6c7ab00d92d009b38e69bcfce74375c9a83f3f93bde0a663c55348e6d"
+  inputs-digest = "7284ceda26cee2f6505136d789ad8c95921d72a0dcc7ec6022e36a4dae64a401"
   solver-name = "gps-cdcl"
   solver-version = 1

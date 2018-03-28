@@ -4,6 +4,13 @@ html, button, input, select, textarea,
 .pure-g [class *= "pure-u"] {
     font-family: 'Roboto', serif;
 }
+.pure-g {
+    display: flex;
+}
+.avatar {
+    border-radius: 50%;
+    margin: 0px;
+}
 .draft {
     float: right;
     color: white;

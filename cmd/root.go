@@ -34,8 +34,15 @@ func init() {
 	rootCmd.PersistentFlags().String("blog.title", "", "your blog's title")
 	rootCmd.PersistentFlags().String("blog.description", "", "your blog's description")
 	rootCmd.PersistentFlags().Bool("blog.draft", false, "show drafts")
+
+	// Blog - Author
 	rootCmd.PersistentFlags().String("blog.pages", "pages/", "directory in which articles are stored")
 	rootCmd.PersistentFlags().String("blog.code.style", "monokai", "style of the code sections")
+	rootCmd.PersistentFlags().String("blog.author.twitter", "", "Twitter handle of the author")
+	rootCmd.PersistentFlags().String("blog.author.name", "", "name (or nickname) of the author")
+	rootCmd.PersistentFlags().String("blog.author.github", "", "github username of the author")
+	rootCmd.PersistentFlags().String("blog.author.site", "", "website of the author")
+	rootCmd.PersistentFlags().String("blog.author.avatar", "", "URL to the author's avatar")
 
 	// Flag binding
 	viper.BindPFlags(rootCmd.PersistentFlags())

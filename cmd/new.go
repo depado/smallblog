@@ -47,11 +47,25 @@ var newCmd = &cobra.Command{
 		o := models.MetaData{
 			Date:        time.Now().Format("2006-01-02 15:04:05"),
 			Tags:        viper.GetStringSlice("tags"),
-			Author:      viper.GetString("author"),
 			Title:       viper.GetString("title"),
 			Description: viper.GetString("description"),
 			Draft:       viper.GetBool("draft"),
 		}
+		// Author related stuff
+		a := &models.Author{
+			Name:    viper.GetString("author.name"),
+			Site:    viper.GetString("author.site"),
+			Twitter: viper.GetString("author.twitter"),
+			Github:  viper.GetString("author.github"),
+		}
+
+		// If no author information has been given and the global author is
+		// not empty, then set that to nil, it will fallback to the default
+		// author
+		if a.IsEmpty() && !models.GetGlobalAuthor().IsEmpty() {
+			a = nil
+		}
+		o.Author = a
 		o.Slug = o.GenerateSlug()
 
 		if err = yaml.NewEncoder(fd).Encode(o); err != nil {
@@ -66,8 +80,13 @@ func init() {
 	newCmd.Flags().String("title", "", "title of the article")
 	newCmd.Flags().String("description", "", "description of the article")
 	newCmd.Flags().String("slug", "", "slug of the article")
-	newCmd.Flags().String("author", "", "author of the article")
 	newCmd.Flags().String("banner", "", "banner URL of the article")
 	newCmd.Flags().Bool("draft", false, "set the status of the article to draft")
+
+	newCmd.Flags().String("author.twitter", "", "twitter handle of the author (overrides global conf)")
+	newCmd.Flags().String("author.name", "", "name (or nickname) of the author (overrides global conf)")
+	newCmd.Flags().String("author.github", "", "github username of the author (overrides global conf)")
+	newCmd.Flags().String("author.site", "", "website of the author (overrides global conf)")
+	newCmd.Flags().String("author.avatar", "", "URL to the author's avatar (overrides global conf)")
 	viper.BindPFlags(newCmd.Flags())
 }
