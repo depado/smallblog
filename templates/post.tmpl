@@ -39,24 +39,27 @@
         </div>
     </div>
     {{ if .gitalk.Enabled }}
-    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
-    <script>
+    <script id="gt" defer src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script defer>
         var tags = ['Gitalk']
         {{ range .post.Tags }}
         tags.push('{{ . }}');
         {{ end }}
-        const gitalk = new Gitalk({
-            clientID: '{{ .gitalk.ClientID}}',
-            clientSecret: '{{ .gitalk.ClientSecret }}',
-            id: '{{ .post.Slug }}',
-            repo: '{{ .gitalk.Repo}}',
-            owner: '{{ .gitalk.Owner }}',
-            admin: [{{ range .gitalk.Admin }}'{{ . }}',{{ end }}],
-            labels: tags,
-            body: "This is the comment issue for the [{{ .post.Title }}]("+location.href+") article.",
-            distractionFreeMode: false
-        })
-        gitalk.render('gitalk-container')
+        var script = document.querySelector('#gt');
+        script.addEventListener('load', function() {
+            const gitalk = new Gitalk({
+                clientID: '{{ .gitalk.ClientID}}',
+                clientSecret: '{{ .gitalk.ClientSecret }}',
+                id: '{{ .post.Slug }}',
+                repo: '{{ .gitalk.Repo}}',
+                owner: '{{ .gitalk.Owner }}',
+                admin: [{{ range .gitalk.Admin }}'{{ . }}',{{ end }}],
+                labels: tags,
+                body: "This is the comment issue for the [{{ .post.Title }}]("+location.href+") article.",
+                distractionFreeMode: false
+            })
+            gitalk.render('gitalk-container');
+        });
     </script>
     {{ end }}
 </body>
