@@ -178,8 +178,7 @@ pre>code {
     margin-top: 70px;
 }
 .author {
-    margin-left: 10px;
-    margin-right: 10px;
+    margin: 10px;
     text-align: center;
     display: flex;
     align-items: center;
@@ -194,10 +193,10 @@ pre>code {
     margin-left: 10px;
 }
 .avatar {
-    border-radius: 50%;
+    border-radius: 25%;
     margin: 0px;
     max-width: 50px;
-    max-width: 50px;
+    max-height: 50px;
 }
 .backbutton {
     border-radius: 5px;
