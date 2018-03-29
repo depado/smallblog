@@ -4,9 +4,6 @@ html, button, input, select, textarea,
 .pure-g [class *= "pure-u"] {
     font-family: 'Roboto', serif;
 }
-.pure-g {
-    display: flex;
-}
 body {
     font-family: 'Roboto', serif;
     text-align: justify;
@@ -147,6 +144,7 @@ pre>code {
     margin-bottom: 50px;
 }
 .head img {
+    width: 100%;
     margin-top: 0;
 }
 .sm-tag {
