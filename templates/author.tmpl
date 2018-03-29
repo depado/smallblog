@@ -1,0 +1,21 @@
+{{ define "author" }}
+<div class="pure-g author">
+    <div class="pure-u-2-5 avatar-container">
+        {{ if .Avatar }}
+        <img src="{{ .Avatar }}" class="avatar"> 
+        {{ end }}
+    </div>
+    <div class="pure-u-3-5 author-info">
+        <b>{{ .Name }}</b><br />
+        {{ if .Twitter }}
+        <a href="https://twitter.com/{{ .Twitter }}" target="_blank"><i class="fab fa-twitter"></i></a>
+        {{ end }} 
+        {{ if .Github }}
+        <a href="https://github.com/{{ .Github }}" target="_blank"><i class="fab fa-github-alt"></i></a>
+        {{ end }} 
+        {{ if .Site }}
+        <a href="//{{ .Site }}" target="_blank"><i class="fas fa-globe"></i></a>
+        {{ end }}
+    </div>
+</div>
+{{ end }}

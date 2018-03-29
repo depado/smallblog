@@ -11,6 +11,7 @@
     {{ if .gitalk.Enabled }}
     <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
     {{ end }}
+    <script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl" crossorigin="anonymous"></script>
     <link rel="icon" href="/static/favicon.gif">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
@@ -18,20 +19,18 @@
 <body>
     <div class="pure-g">
         <div class="pure-u-1 pure-u-md-1-4">
-            <a href="/">← Back</a><br />
-            {{ if .post.Author }}
-            <div class="pure-g">
-                <div class="pure-u-1 pure-u-md-1-5"><img src="{{ .post.Author.Avatar }}" class="avatar"></div>
-                <div class="pure-u-1 pure-u-md-4-5">hihihi</div>
-            </div>
-            {{ end }}
+            <a href="/">Back</a>
         </div>
         <div class="pure-u-1 pure-u-md-1-2">
             <div class="head">
                 {{ if .post.Banner }}<img src="{{ .post.Banner }}" alt="banner">{{ end }}
                 <h1 class="title">{{ .post.Title }}</h1>
+  
                 {{ if .post.Description }}<p>{{ .post.Description }}</p>{{ end }}
                 {{ range .post.Tags }}<a href="/tag/{{ . }}"><span class="sm-tag">{{ . }}</span></a>{{ end }}
+                {{ if .post.Author }}
+                {{ template "author" .post.Author }}
+                {{ end }}
             </div>
             <div class="md">
                 {{ .post.Markdown }}
