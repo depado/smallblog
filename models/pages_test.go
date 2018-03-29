@@ -20,26 +20,23 @@ func TestParseMetadata(t *testing.T) {
 		`title: Example Article
 description: Because everyone needs examples.
 slug: example
-author: Depado
 date: 2016-05-04 15:31:00
 tags:
     - inspiration`: Page{
 			Title:       "Example Article",
 			Description: "Because everyone needs examples.",
 			Slug:        "example",
-			Author:      "Depado",
 			Date:        time.Date(2016, time.May, 4, 15, 31, 0, 0, time.UTC),
 			DateFmt:     "2016/05/04 15:31",
 			Tags:        []string{"inspiration"},
+			Author:      GetGlobalAuthor(),
 		},
 	}
 	mustErr := []string{
-		`date: 2016-05-04 15:31:00`, // Missing title
-		`title: Example Article`,    // Missing date
-		`description: Because everyone needs examples.
-slug: example
-author: Depado`, // Missing date
-		`date: xxxx-05-04 15:31:00`, // Impossible date
+		`date: 2016-05-04 15:31:00`,                                    // Missing title
+		`title: Example Article`,                                       // Missing date
+		"description: Because everyone needs examples.\nslug: example", // Missing date
+		`date: xxxx-05-04 15:31:00`,                                    // Impossible date
 	}
 	for in, expected := range payload {
 		p := Page{}
