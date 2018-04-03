@@ -25,12 +25,6 @@
   revision = "cbb64ac3d964b81592e64f957ad53df015803288"
 
 [[projects]]
-  name = "github.com/davecgh/go-spew"
-  packages = ["spew"]
-  revision = "346938d642f2ec3594ed81d874461961cd0faa76"
-  version = "v1.1.0"
-
-[[projects]]
   name = "github.com/dlclark/regexp2"
   packages = [
     ".",
@@ -113,6 +107,12 @@
   name = "github.com/onrik/logrus"
   packages = ["filename"]
   revision = "6a64e23a4923a8d0d4db2806dcf3e55af1e48f61"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/otiai10/copy"
+  packages = ["."]
+  revision = "c59d460454b7a0c318e59595cb3ea22a41ba2572"
 
 [[projects]]
   name = "github.com/pelletier/go-toml"
@@ -250,6 +250,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "7284ceda26cee2f6505136d789ad8c95921d72a0dcc7ec6022e36a4dae64a401"
+  inputs-digest = "6d5736cc1097a0b2c5fae3af1e2308cce52cec5533016a139052166bdf826905"
   solver-name = "gps-cdcl"
   solver-version = 1

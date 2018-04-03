@@ -16,7 +16,7 @@ var rootCmd = &cobra.Command{
 
 // Execute executes the commands
 func Execute() {
-	rootCmd.AddCommand(serve, validate, newCmd)
+	rootCmd.AddCommand(serve, validate, newCmd, generate)
 	if err := rootCmd.Execute(); err != nil {
 		logrus.WithError(err).Fatal()
 	}

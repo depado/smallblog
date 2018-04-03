@@ -25,9 +25,8 @@
             <div class="head">
                 {{ if .post.Banner }}<img src="{{ .post.Banner }}" alt="banner">{{ end }}
                 <h1 class="title">{{ .post.Title }}</h1>
-  
                 {{ if .post.Description }}<p>{{ .post.Description }}</p>{{ end }}
-                {{ range .post.Tags }}<a href="/tag/{{ . }}"><span class="sm-tag">{{ . }}</span></a>{{ end }}
+                {{ range .Tags }}{{ if not $.local }}<a href="/tag/{{ . }}">{{ end }}<span class="home-sm-tag">{{ . }}</span>{{ if not $.local }}</a>{{ end }}{{ end }}
                 {{ if .post.Author }}
                 {{ template "author" .post.Author }}
                 {{ end }}

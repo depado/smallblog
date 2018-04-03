@@ -149,13 +149,16 @@ func (p *Page) ParseMetadata(h []byte) error {
 	p.DateFmt = t.Format("2006/01/02 15:04")
 	p.Banner = m.Banner
 	p.Tags = m.Tags
-	if m.Author != nil {
-		p.Author = m.Author
-	} else {
-		p.Author = GetGlobalAuthor()
-	}
 	p.Title = m.Title
 	p.Draft = m.Draft
+
+	// Fill in the author information if yaml header contains it. Otherwise
+	// fallback to the GlobalAuthor, and if it's still empty, then nil.
+	if m.Author != nil {
+		p.Author = m.Author
+	} else if !GetGlobalAuthor().IsEmpty() {
+		p.Author = GetGlobalAuthor()
+	}
 	return nil
 }
 
