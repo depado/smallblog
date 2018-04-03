@@ -41,22 +41,6 @@ type Page struct {
 	Draft       bool
 }
 
-var globalAuthor *Author
-
-// GetGlobalAuthor retrieves the author configured in the configuration file
-func GetGlobalAuthor() *Author {
-	if globalAuthor == nil {
-		globalAuthor = &Author{
-			Name:    viper.GetString("blog.author.name"),
-			Github:  viper.GetString("blog.author.github"),
-			Site:    viper.GetString("blog.author.site"),
-			Twitter: viper.GetString("blog.author.twitter"),
-			Avatar:  viper.GetString("blog.author.avatar"),
-		}
-	}
-	return globalAuthor
-}
-
 // NewPageFromFile parses a file, inserts it in the map and slice, and returns a *Page instance
 func NewPageFromFile(fn string) (*Page, error) {
 	var err error

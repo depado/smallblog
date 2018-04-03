@@ -18,20 +18,6 @@ type MetaData struct {
 	Draft       bool     `yaml:"draft"`
 }
 
-// Author represents the author of a single article
-type Author struct {
-	Name    string `yaml:"name"`
-	Twitter string `yaml:"twitter"`
-	Site    string `yaml:"site"`
-	Github  string `yaml:"github"`
-	Avatar  string `yaml:"avatar"`
-}
-
-// IsEmpty checks if all the fields of an Author are blank
-func (a Author) IsEmpty() bool {
-	return a.Name == "" && a.Twitter == "" && a.Site == "" && a.Github == "" && a.Avatar == ""
-}
-
 // Validate validates that the metada is valid
 func (m *MetaData) Validate() error {
 	if m.Date == "" {
