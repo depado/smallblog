@@ -23,12 +23,14 @@ func PostsByTag(c *gin.Context) {
 		}
 	}
 	if len(res) > 0 {
-		c.HTML(http.StatusOK, "index.tmpl", gin.H{
+		data := gin.H{
 			"posts":       res,
 			"title":       viper.GetString("blog.title"),
 			"description": viper.GetString("blog.description"),
 			"extra":       template.HTML(fmt.Sprintf(`Posts tagged with <span class="home-sm-tag">%s</span>`, tag)),
-		})
+			"author":      models.GetGlobalAuthor(),
+		}
+		c.HTML(http.StatusOK, "index.tmpl", data)
 	} else {
 		c.String(http.StatusNotFound, "404 no posts found with this tag")
 	}
@@ -61,14 +63,11 @@ func RawPost(c *gin.Context) {
 
 // Index is the view to list all posts.
 func Index(c *gin.Context) {
-	a := models.GetGlobalAuthor()
 	data := gin.H{
 		"posts":       models.SPages,
 		"title":       viper.GetString("blog.title"),
 		"description": viper.GetString("blog.description"),
-	}
-	if !a.IsEmpty() {
-		data["author"] = a
+		"author":      models.GetGlobalAuthor(),
 	}
 	c.HTML(http.StatusOK, "index.tmpl", data)
 }

@@ -41,15 +41,12 @@ var generate = &cobra.Command{
 		if fd, err = os.Create(filepath.Join(output, "index.html")); err != nil {
 			logrus.WithError(err).Fatal("Couldn't create file")
 		}
-		a := models.GetGlobalAuthor()
 		data := gin.H{
 			"posts":       models.SPages,
 			"title":       viper.GetString("blog.title"),
 			"description": viper.GetString("blog.description"),
 			"local":       true,
-		}
-		if !a.IsEmpty() {
-			data["author"] = a
+			"author":      models.GetGlobalAuthor(),
 		}
 		if err = t.ExecuteTemplate(fd, "index.tmpl", data); err != nil {
 			logrus.WithError(err).Fatal("Couldn't create index")

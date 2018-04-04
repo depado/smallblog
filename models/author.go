@@ -19,15 +19,20 @@ func (a Author) IsEmpty() bool {
 }
 
 // GetGlobalAuthor retrieves the author configured in the configuration file
+// Returns a nil pointer if nothing is defined
 func GetGlobalAuthor() *Author {
 	if globalAuthor == nil {
-		globalAuthor = &Author{
+		a := &Author{
 			Name:    viper.GetString("blog.author.name"),
 			Github:  viper.GetString("blog.author.github"),
 			Site:    viper.GetString("blog.author.site"),
 			Twitter: viper.GetString("blog.author.twitter"),
 			Avatar:  viper.GetString("blog.author.avatar"),
 		}
+		if a.IsEmpty() {
+			return nil
+		}
+		globalAuthor = a
 	}
 	return globalAuthor
 }

@@ -156,7 +156,7 @@ func (p *Page) ParseMetadata(h []byte) error {
 	// fallback to the GlobalAuthor, and if it's still empty, then nil.
 	if m.Author != nil {
 		p.Author = m.Author
-	} else if !GetGlobalAuthor().IsEmpty() {
+	} else {
 		p.Author = GetGlobalAuthor()
 	}
 	return nil
