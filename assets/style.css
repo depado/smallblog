@@ -1,5 +1,4 @@
 /* Global Design */
-
 html, button, input, select, textarea,
 .pure-g [class *= "pure-u"] {
     font-family: 'Roboto', serif;
@@ -105,8 +104,8 @@ pre {
     margin: .5em 0;
     overflow: auto;
     border-radius: 0.3em;
-    -moz-tab-size: 2em;
-    tab-size: 2em;
+    -moz-tab-size: 4ch;
+    tab-size: 4ch;
 }
 code {
     font-family: 'Roboto Mono';
