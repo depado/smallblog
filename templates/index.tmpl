@@ -26,7 +26,9 @@
             {{ if .extra }}<b>{{ .extra }}</b><br /><br />{{ end }}
             {{ range .posts }}
                 <a href="/post/{{ .Slug }}">{{ .Title }}</a>{{ if .Draft }}<span class="draft">Draft</span>{{ end }}<br />
-                {{ range .Tags }}{{ if not $.local }}<a href="/tag/{{ . }}">{{ end }}<span class="home-sm-tag">{{ . }}</span>{{ if not $.local }}</a>{{ end }}{{ end }}
+                {{ range .Tags }}
+                {{ if not $.local }}<a href="/tag/{{ . }}">{{ end }}<span class="btn tag">{{ . }}</span>{{ if not $.local }}</a>{{ end }}
+                {{ end }}
                 <span style="float: right;">{{ .DateFmt }}</span><br />
                 <hr style="background: #e3e1e1;">
             {{ end }}

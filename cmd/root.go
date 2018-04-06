@@ -43,6 +43,7 @@ func init() {
 	rootCmd.PersistentFlags().String("blog.author.github", "", "github username of the author")
 	rootCmd.PersistentFlags().String("blog.author.site", "", "website of the author")
 	rootCmd.PersistentFlags().String("blog.author.avatar", "", "URL to the author's avatar")
+	rootCmd.PersistentFlags().Bool("blog.share", false, "add a Twitter share button on articles")
 
 	// Flag binding
 	viper.BindPFlags(rootCmd.PersistentFlags())

@@ -44,6 +44,7 @@ func Post(c *gin.Context) {
 			"post":        val,
 			"gitalk":      models.GetGitalk(),
 			"extra_style": models.GlobCSS,
+			"share":       viper.GetBool("blog.share"),
 		}
 		c.HTML(http.StatusOK, "post.tmpl", data)
 	} else {

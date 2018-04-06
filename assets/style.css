@@ -2,12 +2,13 @@
 html, button, input, select, textarea,
 .pure-g [class *= "pure-u"] {
     font-family: 'Roboto', serif;
+    font-size: 18px;
 }
 body {
     font-family: 'Roboto', serif;
     text-align: justify;
     line-height: 1.6;
-    font-size: 18px;
+    font-size: 0; /* Fix for unexpected whitespaces showing up */
     color: #444;
     padding: 0 10px;
     background-color: #FFF;
@@ -91,7 +92,6 @@ cite {
 nav > ul > li {
     padding-top: 0.6em;
 }
-/* Code related stuff */
 
 code[class*="language-"], pre[class*="language-"] {
     font-family: 'Roboto Mono';
@@ -146,31 +146,26 @@ pre>code {
     width: 100%;
     margin-top: 0;
 }
-.sm-tag {
-    background: grey;
+.btn {
     display: inline-block;
-    color: #fff;
     position: relative;
-    border-radius: 16px;
     padding-left: 0.6em;
     padding-right: 0.6em;
-    padding-top: 0.2em;
-    padding-bottom: 0.2em;
     text-decoration: none;
     font-size: 14px;
     margin: 3px;
 }
-.home-sm-tag {
-    background: grey;
-    display: inline-block;
+.twitter {
+    background: #00aced;
     color: #fff;
-    position: relative;
+    border-radius: 5%;
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
+}
+.tag {
+    background: grey;
+    color: #fff;
     border-radius: 16px;
-    padding-left: 0.6em;
-    padding-right: 0.6em;
-    text-decoration: none;
-    font-size: 14px;
-    margin: 3px;
 }
 .footerinfo {
     text-align: center;
