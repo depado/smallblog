@@ -41,6 +41,9 @@ a {
 a:hover {
     color: #444;
 }
+a:active,a:link{
+    outline: 0px none;
+}
 .md a {
     color: #07a;
 }
