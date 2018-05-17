@@ -20,6 +20,7 @@
         <div class="pure-u-1 pure-u-md-1-2">
             <div class="head">
             {{ if .title }}<h1 class="title">{{ .title }}</h1>{{ end }}
+            {{ if .feed }}<a href="/rss"><i class="fas fa-rss"></i></a>{{ end }}
             {{ if .description }}{{ .description }}{{ end }}
             {{ if .author }}{{ template "author" .author }}{{ end }}
             </div>

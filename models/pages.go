@@ -4,10 +4,12 @@ import (
 	"fmt"
 	"html/template"
 	"io/ioutil"
+	"net/url"
 	"os"
 	"path"
 	"path/filepath"
 	"sort"
+	"strings"
 	"time"
 
 	"github.com/spf13/viper"
@@ -39,6 +41,41 @@ type Page struct {
 	File        string
 	Slug        string
 	Draft       bool
+}
+
+// GetURL returns the URL of the page
+func (p Page) GetURL() *url.URL {
+	u := &url.URL{
+		Scheme: "http",
+		Host:   viper.GetString("server.domain"),
+		Path:   fmt.Sprintf("/post/%s", p.Slug),
+	}
+	if viper.GetBool("server.tls") {
+		u.Scheme = "https"
+	}
+	return u
+}
+
+// GetShare returns an URL for the Twitter share button
+func (p Page) GetShare() *url.URL {
+	txt := fmt.Sprintf(`"%s"`, p.Title)
+	if p.Author != nil {
+		if p.Author.Twitter != "" {
+			txt = fmt.Sprintf("%s by @%s", txt, p.Author.Twitter)
+		} else {
+			txt = fmt.Sprintf("%s by %s", txt, p.Author.Name)
+		}
+	}
+	u := &url.URL{Scheme: "http", Host: "twitter.com", Path: "/share"}
+	if viper.GetBool("server.tls") {
+		u.Scheme = "https"
+	}
+	q := url.Values{}
+	q.Set("url", p.GetURL().String())
+	q.Set("text", txt)
+	q.Set("hashtags", strings.Join(p.Tags, ","))
+	u.RawQuery = q.Encode()
+	return u
 }
 
 // NewPageFromFile parses a file, inserts it in the map and slice, and returns a *Page instance
@@ -121,6 +158,7 @@ func (p *Page) Pop() {
 		}
 	}
 	delete(MPages, p.Slug)
+	UpdateRSSFeed()
 	logrus.WithFields(logrus.Fields{
 		"file": filepath.Base(p.File),
 		"url":  fmt.Sprintf("/post/%s", p.Slug),
@@ -172,18 +210,19 @@ func (p *Page) ParseMarkdown(b []byte) {
 // it's not a batch insertion. (A batch insertion means after all the inserts,
 // SPages will be sorted manually)
 func (p *Page) Insert(batch bool) error {
-	if p.Draft && !viper.GetBool("blog.draft") {
-		logrus.WithFields(logrus.Fields{"file": p.File, "state": "ignored"}).Info("Draft")
-		return nil
-	}
 	if val, ok := MPages[p.Slug]; ok {
 		return fmt.Errorf("Two pages have the same slug : %s and %s both have %s", p.File, val.File, p.Slug)
 	}
 	MPages[p.Slug] = p
+	if p.Draft && !viper.GetBool("blog.draft") {
+		logrus.WithFields(logrus.Fields{"file": p.File, "state": "unlisted"}).Info("Draft")
+		return nil
+	}
 	SPages = append(SPages, p)
 	if !batch {
 		sort.Sort(SPages)
 	}
+	UpdateRSSFeed()
 	return nil
 }
 
@@ -233,5 +272,6 @@ func ParseDir(dir string) error {
 		"files": len(files),
 		"took":  time.Since(start),
 	}).Info("Generated files")
+	UpdateRSSFeed()
 	return nil
 }

@@ -11,6 +11,16 @@ import (
 	"github.com/Depado/smallblog/models"
 )
 
+// GetRSSFeed returns the RSS feed of the blog
+func GetRSSFeed(c *gin.Context) {
+	rss, err := models.RSS.ToRss()
+	if err != nil {
+		c.String(http.StatusInternalServerError, "500 internal server error")
+		return
+	}
+	c.Data(200, "text/xml", []byte(rss))
+}
+
 // PostsByTag searches for posts containing tag
 func PostsByTag(c *gin.Context) {
 	tag := c.Param("tag")
@@ -38,13 +48,13 @@ func PostsByTag(c *gin.Context) {
 
 // Post is the views for a single post.
 func Post(c *gin.Context) {
-	slug := c.Param("slug")
-	if val, ok := models.MPages[slug]; ok {
+	if page, ok := models.MPages[c.Param("slug")]; ok {
 		data := gin.H{
-			"post":        val,
+			"post":        page,
 			"gitalk":      models.GetGitalk(),
 			"extra_style": models.GlobCSS,
 			"share":       viper.GetBool("blog.share"),
+			"share_url":   page.GetShare(),
 		}
 		c.HTML(http.StatusOK, "post.tmpl", data)
 	} else {

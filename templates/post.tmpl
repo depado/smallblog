@@ -45,9 +45,14 @@
             {{ end }}
         </div>
         <div class="pure-u-1 pure-u-md-1-4">
-            {{ if .share }}
+            {{ if (and .share (not .post.Draft)) }}
             <div style="float: right;">
-                {{ template "share" .post }}
+                {{ template "share" .share_url }}
+            </div>
+            {{ end }}
+            {{ if .post.Draft }}
+            <div class="btn tag" style="float: right; text-align: center;">
+                <i class="far fa-file-alt"></i> Draft Mode<br />This page is unlisted
             </div>
             {{ end }}
         </div>

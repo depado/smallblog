@@ -1,11 +1,3 @@
 {{ define "share" }}
-    {{ if .Author }}
-        {{ if .Author.Twitter }}
-        <a target="_blank" href='//twitter.com/share?text="{{ .Title }}" by @{{ .Author.Twitter }}'><span class="btn twitter"><i class="fab fa-twitter"></i> Tweet</span></a>
-        {{ else }}
-        <a target="_blank" href='//twitter.com/share?text="{{ .Title }}" by {{ .Author.Name }}'><span class="btn twitter"><i class="fab fa-twitter"></i> Tweet</span></a>
-        {{ end }}
-    {{ else }}
-        <a target="_blank" href='//twitter.com/share?text="{{ .Title }}"'><span class="btn twitter"><i class="fab fa-twitter"></i> Tweet</span></a>
-    {{ end }}
+<a target="_blank" href='{{ . }}'><span class="btn twitter"><i class="fab fa-twitter"></i> Tweet</span></a>
 {{ end }}

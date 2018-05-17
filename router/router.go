@@ -46,6 +46,7 @@ func Run() {
 
 	// Routes Definition
 	r.GET("/", views.Index)
+	r.GET("/rss", views.GetRSSFeed)
 	r.GET("/tag/:tag", views.PostsByTag)
 	r.GET("/post/:slug", views.Post)
 	r.GET("/post/:slug/raw", views.RawPost)

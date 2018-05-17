@@ -20,6 +20,8 @@ func init() {
 	serve.Flags().String("server.host", "127.0.0.1", "host on which the server should listen")
 	serve.Flags().Int("server.port", 8080, "port on which the server should listen")
 	serve.Flags().Bool("server.debug", false, "debug mode for the server")
+	serve.Flags().String("server.domain", "", "domain of the blog used for RSS feed and share functionalities")
+	serve.Flags().Bool("server.tls", false, "whether https is activated for the domain")
 
 	// Gitalk
 	serve.Flags().Bool("gitalk.enabled", false, "enable the gitalk feature")
