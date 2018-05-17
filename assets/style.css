@@ -170,6 +170,13 @@ pre>code {
     color: #fff;
     border-radius: 16px;
 }
+.draftinfo {
+    background: grey;
+    color: #fff;
+    border-radius: 5px;
+    float: right;
+    text-align: center;
+}
 .footerinfo {
     text-align: center;
     margin-top: 70px;
