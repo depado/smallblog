@@ -24,6 +24,8 @@ func init() {
 	serve.Flags().Bool("server.tls", false, "whether https is activated for the domain")
 
 	// Gitalk
+	serve.Flags().Bool("analytics.enabled", false, "enable Google Analytics feature")
+	serve.Flags().String("analytics.tag", "", "tag for the Google Analytics feature")
 	serve.Flags().Bool("gitalk.enabled", false, "enable the gitalk feature")
 	serve.Flags().String("gitalk.client_id", "", "client ID of the gitalk app")
 	serve.Flags().String("gitalk.client_secret", "", "client secret of the gitalk app")

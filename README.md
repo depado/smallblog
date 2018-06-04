@@ -87,6 +87,9 @@ server:
   host: 127.0.0.1
   port: 8006
   debug: true
+analytics:
+  enabled: true
+  tag: xx-xxxxx-xxx
 blog:
   title: Depado's Blog
   description: A simple blog from a developer who does things. Powered by smallblog.
@@ -157,6 +160,16 @@ and code highlighting style.
 In this section you can customize the global author. If you fill this, smallblog
 will know that every article that doesn't have author information was written
 by this author. This will also be displayed on the front page (article list).
+
+### analytics
+
+Configuration for Google Analytics. Other types or platforms will be supported
+but for now only GA can be enabled.
+
+| Field     | Description                                            | Default   |
+|-----------|--------------------------------------------------------|-----------|
+| `enabled` | Whether or not the Google Analytics feature is enabled | -         |
+| `tag`     | Google Analytics tag to use                            | -         |
 
 ### Gitalk
 

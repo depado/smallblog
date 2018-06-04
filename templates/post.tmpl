@@ -15,6 +15,7 @@
     <link rel="icon" href="/static/favicon.gif">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {{ if .extra_style }}<style>{{ .extra_style }}</style>{{ end }}
+    {{ if .analytics.enabled }}{{ template "analytics" .analytics }}{{ end }}
 </head>
 
 <body>

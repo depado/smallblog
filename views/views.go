@@ -38,6 +38,7 @@ func PostsByTag(c *gin.Context) {
 			"title":       viper.GetString("blog.title"),
 			"description": viper.GetString("blog.description"),
 			"extra":       template.HTML(fmt.Sprintf(`Posts tagged with <span class="home-sm-tag">%s</span>`, tag)),
+			"analytics":   gin.H{"tag": viper.GetString("analytics.tag"), "enabled": viper.GetBool("analytics.enabled")},
 			"author":      models.GetGlobalAuthor(),
 		}
 		c.HTML(http.StatusOK, "index.tmpl", data)
@@ -53,6 +54,7 @@ func Post(c *gin.Context) {
 			"post":        page,
 			"gitalk":      models.GetGitalk(),
 			"extra_style": models.GlobCSS,
+			"analytics":   gin.H{"tag": viper.GetString("analytics.tag"), "enabled": viper.GetBool("analytics.enabled")},
 			"share":       viper.GetBool("blog.share"),
 			"share_url":   page.GetShare(),
 		}
@@ -78,6 +80,7 @@ func Index(c *gin.Context) {
 		"posts":       models.SPages,
 		"title":       viper.GetString("blog.title"),
 		"description": viper.GetString("blog.description"),
+		"analytics":   gin.H{"tag": viper.GetString("analytics.tag"), "enabled": viper.GetBool("analytics.enabled")},
 		"author":      models.GetGlobalAuthor(),
 	}
 	c.HTML(http.StatusOK, "index.tmpl", data)
