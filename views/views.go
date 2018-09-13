@@ -38,7 +38,7 @@ func PostsByTag(c *gin.Context) {
 			"posts":       res,
 			"title":       viper.GetString("blog.title"),
 			"description": viper.GetString("blog.description"),
-			"extra":       template.HTML(fmt.Sprintf(`Posts tagged with <span class="home-sm-tag">%s</span>`, tag)),
+			"extra":       template.HTML(fmt.Sprintf(`Posts tagged with <span class="btn tag">%s</span>`, tag)),
 			"analytics":   gin.H{"tag": viper.GetString("analytics.tag"), "enabled": viper.GetBool("analytics.enabled")},
 			"author":      models.GetGlobalAuthor(),
 		}
@@ -100,6 +100,7 @@ func GetDrafts(c *gin.Context) {
 		"posts":       o,
 		"title":       viper.GetString("blog.title"),
 		"description": viper.GetString("blog.description"),
+		"extra":       template.HTML(`These articles are drafts and may be incomplete`),
 		"analytics":   gin.H{"tag": viper.GetString("analytics.tag"), "enabled": viper.GetBool("analytics.enabled")},
 		"author":      models.GetGlobalAuthor(),
 	}
