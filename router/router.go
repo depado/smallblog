@@ -46,11 +46,14 @@ func Run() {
 
 	// Routes Definition
 	r.GET("/", views.Index)
+	r.GET("/drafts", views.GetDrafts)
 	r.GET("/rss", views.GetRSSFeed)
 	r.GET("/tag/:tag", views.PostsByTag)
 	r.GET("/post/:slug", views.Post)
 	r.GET("/post/:slug/raw", views.RawPost)
-	r.GET("/robots.txt", func(c *gin.Context) { c.String(http.StatusOK, "User-Agent: *\nDisallow: /post/*/raw") })
+	r.GET("/robots.txt", func(c *gin.Context) {
+		c.String(http.StatusOK, "User-Agent: *\nDisallow: /post/*/raw\nDisallow: /tag/*")
+	})
 
 	// Run
 	logrus.WithFields(logrus.Fields{

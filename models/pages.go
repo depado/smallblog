@@ -25,7 +25,7 @@ var MPages map[string]*Page
 
 // SPages is a sorted slice of pages. Sorted by date, it is used to render all
 // the pages on the index page.
-var SPages pageSlice
+var SPages PageSlice
 
 // Page is the main struct. It contains everything needed to render the article.
 type Page struct {
@@ -98,20 +98,21 @@ func NewPageFromFile(fn string) (*Page, error) {
 	return p, nil
 }
 
-type pageSlice []*Page
+// PageSlice is a slice of pointer to pages
+type PageSlice []*Page
 
 // Len is part of sort.Interface.
-func (p pageSlice) Len() int {
+func (p PageSlice) Len() int {
 	return len(p)
 }
 
 // Swap is part of sort.Interface.
-func (p pageSlice) Swap(i, j int) {
+func (p PageSlice) Swap(i, j int) {
 	p[i], p[j] = p[j], p[i]
 }
 
 // Less is part of sort.Interface. We use count as the value to sort by
-func (p pageSlice) Less(i, j int) bool {
+func (p PageSlice) Less(i, j int) bool {
 	return p[i].Date.After(p[j].Date)
 }
 
@@ -237,7 +238,7 @@ func ParseDir(dir string) error {
 	}
 
 	MPages = make(map[string]*Page, len(files))
-	SPages = make(pageSlice, 0, len(files))
+	SPages = make(PageSlice, 0, len(files))
 
 	for _, f := range files {
 		if f.IsDir() {

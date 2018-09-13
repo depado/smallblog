@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"html/template"
 	"net/http"
+	"sort"
 
 	"github.com/gin-gonic/gin"
 	"github.com/spf13/viper"
@@ -78,6 +79,25 @@ func RawPost(c *gin.Context) {
 func Index(c *gin.Context) {
 	data := gin.H{
 		"posts":       models.SPages,
+		"title":       viper.GetString("blog.title"),
+		"description": viper.GetString("blog.description"),
+		"analytics":   gin.H{"tag": viper.GetString("analytics.tag"), "enabled": viper.GetBool("analytics.enabled")},
+		"author":      models.GetGlobalAuthor(),
+	}
+	c.HTML(http.StatusOK, "index.tmpl", data)
+}
+
+// GetDrafts gets the unsorted drafts
+func GetDrafts(c *gin.Context) {
+	o := models.PageSlice{}
+	for _, v := range models.MPages {
+		if v.Draft {
+			o = append(o, v)
+		}
+	}
+	sort.Sort(o)
+	data := gin.H{
+		"posts":       o,
 		"title":       viper.GetString("blog.title"),
 		"description": viper.GetString("blog.description"),
 		"analytics":   gin.H{"tag": viper.GetString("analytics.tag"), "enabled": viper.GetBool("analytics.enabled")},
