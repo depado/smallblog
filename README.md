@@ -62,8 +62,10 @@ INFO[0000] Successfully generated new article            file=pages/first-articl
 This commands takes a single argument : The name of the file this command will
 write. It will automatically append the `.md` suffix if you don't specify it
 and will place it in the configured (or default) `pages` directory. Also we're
-specifying that this article is a draft. A draft can only be visible if the
-server was started with the `blog.draft` configuration variable set to true.
+specifying that this article is a draft. Drafts can be accessed directly using
+the slug of the article, or on the `/drafts` endpoint. Alternatively you can 
+start the server with `blog.draft` set to true, which will list draft articles
+on the homepage.
 
 To check if this is working, simply run the following command :
 
