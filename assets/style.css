@@ -24,7 +24,7 @@ table {
     border-collapse: collapse;
     width: 100%;
 }
-img {
+img,object {
     max-width: 100%;
     margin: 30px auto 30px auto;
     height: auto;
