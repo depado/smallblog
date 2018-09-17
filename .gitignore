@@ -27,6 +27,7 @@ _testmain.go
 smallblog
 pages/
 conf.yml
-releases
-vendor
+releases/
+dist/
+vendor/
 coverage.txt

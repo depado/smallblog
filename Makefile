@@ -1,23 +1,32 @@
-version = 1.0.2
+.PHONY: all clean test docker latest release
 
-.PHONY: release clean
+export CGO_ENABLED=0
+export GOOS=linux
+export GOARCH=amd64
 
-release:
-	-mkdir -p releases/smallblog-linux-amd64-${version}/pages
-	-mkdir -p releases/smallblog-linux-arm-${version}/pages
-	cp -r assets/ releases/smallblog-linux-amd64-${version}
-	cp -r assets/ releases/smallblog-linux-arm-${version}
-	cp -r templates/ releases/smallblog-linux-amd64-${version}
-	cp -r templates/ releases/smallblog-linux-arm-${version}
-	cp examples/article.md.example releases/smallblog-linux-amd64-${version}/pages/article.md
-	cp examples/article.md.example releases/smallblog-linux-arm-${version}/pages/article.md
-	cp examples/conf.yml.example releases/smallblog-linux-amd64-${version}/conf.yml
-	cp examples/conf.yml.example releases/smallblog-linux-arm-${version}/conf.yml
-	go build -o releases/smallblog-linux-amd64-${version}/smallblog
-	GOARCH=arm go build -o releases/smallblog-linux-arm-${version}/smallblog
-	cd releases
-	tar czf smallblog-linux-amd64-${version}.tar.gz smallblog-linux-amd64-${version}
-	tar czf smallblog-linux-arm-${version}.tar.gz smallblog-linux-arm-${version}
+BINARY=smallblog
+VERSION=$(shell git describe --abbrev=0 --tags 2> /dev/null || echo "0.1.0")
+BUILD=$(shell git rev-parse HEAD 2> /dev/null || echo "undefined")
+LDFLAGS=-ldflags "-X main.Version=$(VERSION) -X main.Build=$(BUILD)"
+
+all:
+	go build -o $(BINARY) $(LDFLAGS)
+
+docker:
+	docker build \
+		-t $(BINARY):latest \
+		-t $(BINARY):$(VERSION) \
+		--build-arg build=$(BUILD) --build-arg version=$(VERSION) \
+		-f Dockerfile --no-cache .
+
+latest:
+	docker build \
+		-t $(BINARY):latest \
+		--build-arg build=$(BUILD) --build-arg version=$(VERSION) \
+		-f Dockerfile --no-cache .
+
+test:
+	go test ./...
 
 clean:
-	-rm -r releases/
+	if [ -f $(BINARY) ] ; then rm $(BINARY) ; fi
