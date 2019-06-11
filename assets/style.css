@@ -96,6 +96,69 @@ nav > ul > li {
     padding-top: 0.6em;
 }
 
+.infobox {
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12),0 3px 1px -2px rgba(0,0,0,.2);
+    position: relative;
+    margin: 1.5625em 0;
+    padding: 1.2rem;
+    border-left: .4rem solid #448aff;
+    border-radius: .2rem;
+    font-size: 1.28rem;
+}
+
+.admonition {
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12),0 3px 1px -2px rgba(0,0,0,.2);
+    position: relative;
+    margin: 1.5625em 0;
+    padding: 0 .6rem;
+    border-left: .2rem solid #448aff;
+    border-left-color: rgb(68, 138, 255);
+    border-radius: .1rem;
+    font-size: .8rem;
+    overflow: auto;
+}
+
+.admonition-title {
+    margin: 0 -.6rem;
+    padding: .4rem .6rem;
+    border-bottom: .05rem solid rgba(68,138,255,.1);
+    background-color: rgba(68,138,255,.1);
+    font-weight: 700;
+}
+
+.admonition.info {
+    border-left: .2rem solid #448aff;
+    border-left-color: rgb(68, 138, 255);
+}
+
+.admonition.danger {
+    border-left: .2rem solid rgb(244, 67, 54);
+    border-left-color: rgb(244, 67, 54);
+}
+
+.admonition.danger > p.admonition-title {
+    border-bottom: .05rem solid rgb(244, 67, 54,.1);
+    background-color: rgb(244, 67, 54,.1);
+}
+
+details {
+    padding: 5px 10px 5px 10px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+summary {
+    cursor: pointer;
+    outline: none;
+}
+
+details > summary:first-of-type {
+    list-style-type: none;
+}
+
+details summary::-webkit-details-marker {
+    display:none;
+}
+
 code[class*="language-"], pre[class*="language-"] {
     font-family: 'Roboto Mono';
 }

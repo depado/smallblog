@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"html/template"
 
+	"github.com/Depado/bfadmonition"
 	"github.com/Depado/bfchroma"
 	"github.com/alecthomas/chroma/formatters/html"
 	"github.com/sirupsen/logrus"
@@ -25,8 +26,13 @@ func render(input []byte) []byte {
 	r := bfchroma.NewRenderer(
 		bfchroma.WithoutAutodetect(),
 		bfchroma.Extend(
-			bf.NewHTMLRenderer(bf.HTMLRendererParameters{Flags: flags}),
+			bfadmonition.NewRenderer(
+				bfadmonition.Extend(
+					bf.NewHTMLRenderer(bf.HTMLRendererParameters{Flags: flags}),
+				),
+			),
 		),
+
 		bfchroma.Style(viper.GetString("blog.code.style")),
 		bfchroma.ChromaOptions(html.WithClasses()),
 	)
