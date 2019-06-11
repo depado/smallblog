@@ -141,6 +141,26 @@ nav > ul > li {
     background-color: rgb(244, 67, 54,.1);
 }
 
+.admonition.question {
+    border-left: .2rem solid rgb(76, 175, 80);
+    border-left-color: rgb(76, 175, 80);
+}
+
+.admonition.question > p.admonition-title {
+    border-bottom: .05rem solid rgb(76, 175, 80,.1);
+    background-color: rgb(76, 175, 80, .1);
+}
+
+.admonition.hint {
+    border-left: .2rem solid rgb(0, 150, 136);
+    border-left-color: rgb(0, 150, 136);
+}
+
+.admonition.hint > p.admonition-title {
+    border-bottom: .05rem solid rgb(0, 150, 136, .1);
+    background-color: rgb(0, 150, 136, .1);
+}
+
 details {
     padding: 5px 10px 5px 10px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
