@@ -6,12 +6,11 @@
     <title>{{ .post.Title }}</title>
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet" type="text/css">
-    <link href="/static/style.css" rel="stylesheet" />
+    <link href="/static/style.min.css" rel="stylesheet" />
     <link href="/static/grids-responsive-min.css" rel="stylesheet" />
     {{ if .gitalk.Enabled }}
     <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
     {{ end }}
-    <script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl" crossorigin="anonymous"></script>
     <link rel="icon" href="/static/favicon.gif">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {{ if .extra_style }}<style>{{ .extra_style }}</style>{{ end }}
@@ -58,6 +57,15 @@
             {{ end }}
         </div>
     </div>
+    <script type="text/javascript">
+        (function () {
+            var css = document.createElement('link');
+            css.href = '/static/fa/css/all.min.css';
+            css.rel = 'stylesheet';
+            css.type = 'text/css';
+            document.getElementsByTagName('head')[0].appendChild(css);
+        })();
+    </script>
     {{ if .gitalk.Enabled }}
     <script id="gt" defer src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
     <script defer>

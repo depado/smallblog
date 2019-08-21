@@ -1,0 +1,84 @@
+$colors: (
+  "success": #64dd17,
+  "question": #00c853,
+  "info": #448aff,
+  "warning": #ff9100,
+  "hint": #009688,
+  "danger": #ff1744
+);
+
+$icons: (
+  "note": "\f249",
+  "danger": "\f06a",
+  "question": "\f128",
+  "hint": "\f06d",
+  "success": "\f00c",
+  "warning": "\f071"
+);
+
+@mixin admonition($color, $icon) {
+  $dark: rgba($color, 0.1);
+  border-left: 0.2rem solid $color;
+  > p.admonition-title {
+    background-color: $dark;
+    &::before {
+      font-family: "Font Awesome 5 Free";
+      font-weight: 900;
+      margin-right: 0.4rem;
+      content: $icon;
+      color: rgba($color, 1);
+    }
+  }
+}
+
+.admonition {
+  $color: map-get($colors, "info");
+  $dark: rgba($color, 0.1);
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12),
+    0 3px 1px -2px rgba(0, 0, 0, 0.2);
+  position: relative;
+  margin: 1.5625em 0;
+  padding: 0 0.6rem;
+  border-left: 0.2rem solid $color;
+  border-left-color: $color;
+  border-radius: 0.1rem;
+  font-size: 0.8rem;
+  overflow: auto;
+
+  &-title {
+    margin: 0 -0.6rem;
+    padding: 0.4rem 0.6rem;
+    border-bottom: 0.05rem solid $dark;
+    background-color: $dark;
+    font-weight: 700;
+  }
+
+  &.note,
+  &.info {
+    @include admonition(map-get($colors, "info"), map-get($icons, "note"));
+  }
+  &.danger {
+    @include admonition(map-get($colors, "danger"), map-get($icons, "danger"));
+  }
+  &.question {
+    @include admonition(
+      map-get($colors, "question"),
+      map-get($icons, "question")
+    );
+  }
+  &.hint {
+    @include admonition(map-get($colors, "hint"), map-get($icons, "hint"));
+  }
+  &.success {
+    @include admonition(
+      map-get($colors, "success"),
+      map-get($icons, "success")
+    );
+  }
+  &.warning {
+    @include admonition(
+      map-get($colors, "warning"),
+      map-get($icons, "warning")
+    );
+  }
+}

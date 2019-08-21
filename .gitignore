@@ -31,3 +31,4 @@ releases/
 dist/
 vendor/
 coverage.txt
+.sass-cache
