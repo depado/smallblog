@@ -251,3 +251,5 @@ server. Which means several things :
 All these changes are instant. Usually a file takes ~250µs to be parsed. When
 you restart the server, all the files will be parsed again so they are stored in
 RAM (which is really efficient unless you have 250MB of markdown file).
+
+
