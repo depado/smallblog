@@ -31,9 +31,9 @@ func Watch(dir string) {
 		case notify.Write, notify.InMovedTo:
 			if p, ok := m[filepath.Base(ei.Path())]; ok {
 				// Existing file, needs to be parsed.
-				if err = p.UpdateFromFile(ei.Path()); err != nil {
-					logrus.WithError(err).WithField("file", ei.Path()).Error("Unable to update post")
-				}
+				// Errors here are irrelevent since most of the time, the file
+				// isn't finished being written
+				p.UpdateFromFile(ei.Path()) // nolint: errcheck
 			} else {
 				// New file. Needs to be parsed and inserted.
 				var p *models.Page

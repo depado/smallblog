@@ -1,8 +1,8 @@
 @import 'admonition';
 
 $color-blue: #1565c0;
-$color-grey: #646464;
-$color-dark-grey: #444;
+$color-grey: #4d4d4d;
+$color-dark-grey: #303030;
 
 html,
 button,
@@ -18,7 +18,7 @@ body {
   text-align: justify;
   line-height: 1.6;
   font-size: 0;
-  color: #444;
+  color: $color-dark-grey;
   padding: 0 10px;
   background-color: #fff;
 }
@@ -47,9 +47,9 @@ iframe {
 }
 a {
   text-decoration: none;
-  color: #646464;
+  color: $color-grey;
   &:hover {
-    color: #444;
+    color: $color-dark-grey;
   }
   &:active,
   &:link {
@@ -67,7 +67,7 @@ a {
   nav a {
     color: grey;
     &:hover {
-      color: #444;
+      color: $color-dark-grey;
       text-decoration: none;
     }
   }
@@ -147,6 +147,10 @@ pre {
   [class*="language-"] & {
     font-family: "Roboto Mono";
   }
+  @media screen and (min-width: 48em) {
+    width: 110%;
+    margin-left: -5%;
+  }
   > code {
     padding: 0;
     padding-right: 1em;
@@ -208,6 +212,7 @@ code {
 .tag {
   border-radius: 16px;
   border: solid grey 1px;
+  color: grey;
   &:hover{
     background-color: grey;
     color: white;
@@ -263,12 +268,24 @@ span.draft {
 }
 
 .post {
-  border-left: 0.2rem solid $color-blue;
+  border-left: 0.25rem solid $color-blue;
   border-radius: 0.1rem;
   padding-left: 0.5rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
   p {
-    margin: 0 0 0.3rem 0;
+    margin: 0;
+     &.date {
+      color: grey;
+      font-size: 0.85rem;
+    }
+    &.description {
+      color: grey;
+      font-size: 0.85rem;
+      margin: 0.5rem 0 0.5rem 0;
+    }
+    &.title {
+      font-size: 1.2rem;
+    }
   }
   &.draft {
     border-left: 0.2rem map-get($colors, "warning") solid;

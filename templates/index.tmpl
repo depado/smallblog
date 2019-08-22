@@ -27,10 +27,18 @@
             {{ if .extra }}<b>{{ .extra }}</b><br /><br />{{ end }}
             {{ range .posts }}
             <div class="post {{ if .Draft }}draft{{ end }}">
-                <p>
+                <p class="title">
                     {{ if .Draft }}<span class="draft">Draft</span> {{ end }}<a
                         href="/post/{{ .Slug }}">{{ .Title }}</a>
                 </p>
+                <p class="date">
+                    <i class="far fa-clock"></i> {{ .DateFmt }}
+                </p>
+                {{ if .Description }}
+                <p class="description">
+                    {{ .Description }}
+                </p>
+                {{ end }}
                 <div>
                     {{ range .Tags }}
                     {{ if not $.local }}
