@@ -224,7 +224,7 @@ author:
   twitter: Depado_
   site: depado.eu
   github: Depado
-  avatar: "//blog.depado.eu/assets/avatar.jpg"
+  avatar: "//blog.depa.do/assets/avatar.jpg"
 slug: example-article
 tags: [go,dev,example,hello]
 date: "2018-04-03 13:28:13"
