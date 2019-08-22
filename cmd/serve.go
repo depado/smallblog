@@ -32,5 +32,5 @@ func init() {
 	serve.Flags().String("gitalk.repo", "", "repository where the comments will be stored")
 	serve.Flags().String("gitalk.owner", "", "repository owner")
 	serve.Flags().StringArray("gitalk.admins", []string{}, "gitalk admins")
-	viper.BindPFlags(serve.Flags())
+	viper.BindPFlags(serve.Flags()) // nolint: errcheck
 }

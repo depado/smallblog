@@ -29,13 +29,21 @@ var generate = &cobra.Command{
 			logrus.WithError(err).Fatal("Couldn't parse directory")
 		}
 		t, err := template.ParseGlob("templates/*.tmpl")
+		if err != nil {
+			logrus.WithError(err).Fatal("Unable to parse templates")
+		}
 		for _, v := range models.MPages {
 			var fd *os.File
 			v.Slug = v.Slug + ".html"
 			if fd, err = os.Create(filepath.Join(pages, v.Slug)); err != nil {
 				logrus.WithError(err).Fatal("Couldn't create file")
 			}
-			t.ExecuteTemplate(fd, "post.tmpl", gin.H{"post": v, "gitalk": models.GetGitalk(), "local": true})
+			if err = t.ExecuteTemplate(
+				fd, "post.tmpl",
+				gin.H{"post": v, "gitalk": models.GetGitalk(), "local": true},
+			); err != nil {
+				logrus.WithError(err).Fatal("Unable to execute template")
+			}
 		}
 		var fd *os.File
 		if fd, err = os.Create(filepath.Join(output, "index.html")); err != nil {

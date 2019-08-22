@@ -88,5 +88,5 @@ func init() {
 	newCmd.Flags().String("author.github", "", "github username of the author (overrides global conf)")
 	newCmd.Flags().String("author.site", "", "website of the author (overrides global conf)")
 	newCmd.Flags().String("author.avatar", "", "URL to the author's avatar (overrides global conf)")
-	viper.BindPFlags(newCmd.Flags())
+	viper.BindPFlags(newCmd.Flags()) // nolint: errcheck
 }

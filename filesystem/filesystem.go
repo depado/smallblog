@@ -5,6 +5,7 @@ import (
 	"path/filepath"
 
 	"github.com/rjeczalik/notify"
+	"github.com/sirupsen/logrus"
 
 	"github.com/Depado/smallblog/models"
 )
@@ -30,11 +31,14 @@ func Watch(dir string) {
 		case notify.Write, notify.InMovedTo:
 			if p, ok := m[filepath.Base(ei.Path())]; ok {
 				// Existing file, needs to be parsed.
-				p.UpdateFromFile(ei.Path())
+				if err = p.UpdateFromFile(ei.Path()); err != nil {
+					logrus.WithError(err).WithField("file", ei.Path()).Error("Unable to update post")
+				}
 			} else {
 				// New file. Needs to be parsed and inserted.
-				p := new(models.Page)
+				var p *models.Page
 				if p, err = models.NewPageFromFile(ei.Path()); err != nil {
+					logrus.WithError(err).WithField("file", ei.Path()).Error("Unable to update post")
 					continue
 				}
 				m[filepath.Base(ei.Path())] = p

@@ -7,6 +7,7 @@ import (
 	"sort"
 
 	"github.com/gin-gonic/gin"
+	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
 
 	"github.com/Depado/smallblog/models"
@@ -69,7 +70,10 @@ func Post(c *gin.Context) {
 func RawPost(c *gin.Context) {
 	slug := c.Param("slug")
 	if val, ok := models.MPages[slug]; ok {
-		c.Writer.Write([]byte(val.Raw))
+		if _, err := c.Writer.Write([]byte(val.Raw)); err != nil {
+			logrus.WithError(err).Error("Unable to write raw markdown")
+			c.String(http.StatusInternalServerError, "500 internal server error")
+		}
 	} else {
 		c.String(http.StatusNotFound, "404 not found")
 	}

@@ -46,7 +46,7 @@ func init() {
 	rootCmd.PersistentFlags().Bool("blog.share", false, "add a Twitter share button on articles")
 
 	// Flag binding
-	viper.BindPFlags(rootCmd.PersistentFlags())
+	viper.BindPFlags(rootCmd.PersistentFlags()) // nolint: errcheck
 }
 
 func initialize() {

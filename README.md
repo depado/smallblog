@@ -1,9 +1,8 @@
 # Smallblog
 
-![Go Version](https://img.shields.io/badge/go-1.9-brightgreen.svg)
-![Go Version](https://img.shields.io/badge/go-1.10-brightgreen.svg)
+![Go Version](https://img.shields.io/badge/go-latest-brightgreen)
 [![Go Report Card](https://goreportcard.com/badge/github.com/Depado/smallblog)](https://goreportcard.com/report/github.com/Depado/smallblog)
-[![Build Status](https://drone.depado.eu/api/badges/Depado/smallblog/status.svg)](https://drone.depado.eu/Depado/smallblog)
+[![Build Status](https://drone.depa.do/api/badges/Depado/smallblog/status.svg)](https://drone.depa.do/Depado/smallblog)
 [![codecov](https://codecov.io/gh/Depado/smallblog/branch/master/graph/badge.svg)](https://codecov.io/gh/Depado/smallblog)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/Depado/smallblog/blob/master/LICENSE)
 
@@ -26,19 +25,20 @@ that's not as fun.
 
 ## Features
 
-- Filesystem monitoring : Drop a new file or modify a file, bam, your blog is
-updated
+- Filesystem monitoring: Create, modify or delete a file and your blog is 
+  updated
 - Automatic syntax highlighting using [bfchroma](https://github.com/Depado/bfchroma)
-(which uses [chroma](https://github.com/alecthomas/chroma) under the hood)
+  (which uses [chroma](https://github.com/alecthomas/chroma) under the hood)
+- Supports [admonitions](https://python-markdown.github.io/extensions/admonition/)
+  using [bfadmonition](https://github.com/Depado/bfadmonition)
 - No CGO dependencies
 - Tag system
 - Simple and customizable template and CSS for easy reading
 - Comments using [gitalk](https://github.com/gitalk/gitalk)
 - Supports global assets for all your articles
-- Can generate a static site :
+- Can generate a static site:
   - Tags won't work
   - Raw markdown won't work
-  - Can't test without a proper web server like Caddy or Nginx
 
 ## Tutorial
 
@@ -213,7 +213,7 @@ post's title if it is omitted.
 
 ## Example Article
 
-`pages/example-article`
+`pages/example-article.md`
 
 ```
 title: "Example article !"
