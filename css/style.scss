@@ -1,4 +1,4 @@
-@import 'admonition';
+@import "admonition";
 
 $color-blue: #1565c0;
 $color-grey: #4d4d4d;
@@ -69,6 +69,23 @@ a {
     &:hover {
       color: $color-dark-grey;
       text-decoration: none;
+    }
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    a.anchor {
+      display: none;
+      font-weight: 700;
+      text-decoration: none;
+      color: grey;
+      &:hover {
+        text-decoration: none;
+        color: $color-dark-grey;
+      }
     }
   }
 }
@@ -213,7 +230,7 @@ code {
   border-radius: 16px;
   border: solid grey 1px;
   color: grey;
-  &:hover{
+  &:hover {
     background-color: grey;
     color: white;
   }
@@ -274,7 +291,7 @@ span.draft {
   margin-bottom: 2rem;
   p {
     margin: 0;
-     &.date {
+    &.date {
       color: grey;
       font-size: 0.85rem;
     }

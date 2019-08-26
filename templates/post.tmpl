@@ -28,10 +28,11 @@
                 <h1 class="title">{{ .post.Title }}</h1>
                 {{ if .post.Description }}<p>{{ .post.Description }}</p>{{ end }}
                 {{ range .post.Tags }}
-                    {{ if not $.local }}<a href="/tag/{{ . }}">{{ end }}<span class="btn tag">{{ . }}</span>{{ if not $.local }}</a>{{ end }}
+                {{ if not $.local }}
+                <a href="/tag/{{ . }}">{{ end }}<span class="btn tag">{{ . }}</span>{{ if not $.local }}</a>{{ end }}
                 {{ end }}
                 {{ if .post.Author }}
-                    {{ template "author" .post.Author }}
+                {{ template "author" .post.Author }}
                 {{ end }}
             </div>
             <div class="md">
@@ -64,26 +65,37 @@
             css.rel = 'stylesheet';
             css.type = 'text/css';
             document.getElementsByTagName('head')[0].appendChild(css);
+            headings = Array.from(document.querySelectorAll("h1, h2, h3, h4, h5, h6")).filter(h => h.id);
+            for (let i = 0; i < headings.length; i++) {
+                const el = headings[i];
+                const a = document.getElementById("a-" + el.id);
+                el.addEventListener("mouseover", function () {
+                    a.style.display = "inline";
+                });
+                el.addEventListener("mouseout", function () {
+                    a.style.display = "none";
+                });
+            }
         })();
     </script>
     {{ if .gitalk.Enabled }}
     <script id="gt" defer src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
     <script defer>
-        var tags = ['Gitalk']
-        {{ range .post.Tags }}
-        tags.push('{{ . }}');
+        var tags = ['Gitalk'] 
+        {{ range.post.Tags }}
+        tags.push('{{ . }}'); 
         {{ end }}
         var script = document.querySelector('#gt');
-        script.addEventListener('load', function() {
+        script.addEventListener('load', function () {
             const gitalk = new Gitalk({
                 clientID: '{{ .gitalk.ClientID}}',
                 clientSecret: '{{ .gitalk.ClientSecret }}',
                 id: '{{ .post.Slug }}',
                 repo: '{{ .gitalk.Repo}}',
                 owner: '{{ .gitalk.Owner }}',
-                admin: [{{ range .gitalk.Admin }}'{{ . }}',{{ end }}],
+                admin: [{{ range.gitalk.Admin }}'{{ . }}',{{ end }}],
                 labels: tags,
-                body: "This is the comment issue for the [{{ .post.Title }}]("+location.href+") article.",
+                body: "This is the comment issue for the [{{ .post.Title }}](" + location.href + ") article.",
                 distractionFreeMode: false
             })
             gitalk.render('gitalk-container');

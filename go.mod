@@ -3,9 +3,9 @@ module github.com/Depado/smallblog
 go 1.12
 
 require (
-	github.com/Depado/bfadmonition v0.1.0
-	github.com/Depado/bfchroma v1.1.2
-	github.com/alecthomas/chroma v0.6.3
+	github.com/Depado/bfplus v0.1.0
+	github.com/alecthomas/chroma v0.6.6
+	github.com/alecthomas/repr v0.0.0-20181024024818-d37bc2a10ba1 // indirect
 	github.com/gin-contrib/sse v0.1.0 // indirect
 	github.com/gin-gonic/gin v1.4.0
 	github.com/gorilla/feeds v1.1.1
@@ -24,7 +24,7 @@ require (
 	github.com/spf13/jwalterweatherman v1.1.0 // indirect
 	github.com/spf13/viper v1.4.0
 	github.com/stvp/slug v0.0.0-20150928221549-5ab8191bb1fe
-	github.com/ugorji/go v1.1.5-pre // indirect
+	github.com/ugorji/go/codec v1.1.5-pre // indirect
 	golang.org/x/net v0.0.0-20190611141213-3f473d35a33a // indirect
 	golang.org/x/sys v0.0.0-20190610200419-93c9922d18ae // indirect
 	golang.org/x/text v0.3.2 // indirect
