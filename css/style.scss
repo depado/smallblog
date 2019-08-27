@@ -236,7 +236,7 @@ code {
   }
 }
 .draftinfo {
-  background: grey;
+  background: map-get($colors, "warning");
   color: #fff;
   border-radius: 5px;
   float: right;
@@ -284,6 +284,11 @@ span.draft {
   font-size: 15px;
 }
 
+.date {
+  color: grey;
+  font-size: 0.85rem;
+}
+
 .post {
   border-left: 0.25rem solid $color-blue;
   border-radius: 0.1rem;
@@ -291,10 +296,6 @@ span.draft {
   margin-bottom: 2rem;
   p {
     margin: 0;
-    &.date {
-      color: grey;
-      font-size: 0.85rem;
-    }
     &.description {
       color: grey;
       font-size: 0.85rem;

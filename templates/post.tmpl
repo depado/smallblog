@@ -27,10 +27,13 @@
                 {{ if .post.Banner }}<img src="{{ .post.Banner }}" alt="banner">{{ end }}
                 <h1 class="title">{{ .post.Title }}</h1>
                 {{ if .post.Description }}<p>{{ .post.Description }}</p>{{ end }}
-                {{ range .post.Tags }}
-                {{ if not $.local }}
-                <a href="/tag/{{ . }}">{{ end }}<span class="btn tag">{{ . }}</span>{{ if not $.local }}</a>{{ end }}
-                {{ end }}
+                <p>
+                    {{ range .post.Tags }}
+                    {{ if not $.local }}
+                    <a href="/tag/{{ . }}">{{ end }}<span class="btn tag">{{ . }}</span>{{ if not $.local }}</a>{{ end }}
+                    {{ end }}
+                    <br /><span class="date"><i class="far fa-clock"></i> {{ .post.DateFmt }}</span>
+                </p>
                 {{ if .post.Author }}
                 {{ template "author" .post.Author }}
                 {{ end }}

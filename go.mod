@@ -3,7 +3,7 @@ module github.com/Depado/smallblog
 go 1.12
 
 require (
-	github.com/Depado/bfplus v0.1.0
+	github.com/Depado/bfplus v0.1.1
 	github.com/alecthomas/chroma v0.6.6
 	github.com/alecthomas/repr v0.0.0-20181024024818-d37bc2a10ba1 // indirect
 	github.com/gin-contrib/sse v0.1.0 // indirect
