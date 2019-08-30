@@ -1,6 +1,8 @@
 package cmd
 
 import (
+	"strings"
+
 	"github.com/onrik/logrus/filename"
 	"github.com/sirupsen/logrus"
 
@@ -8,74 +10,76 @@ import (
 	"github.com/spf13/viper"
 )
 
-var rootCmd = &cobra.Command{
-	Use:   "smallblog",
-	Short: "Smallblog is a simple self-hosted no-db blog",
-	Long:  "A simple blog engine which parses markdown files with front-matter in yaml.",
+// AddLogFlags will add the log flags to the given command
+func AddLogFlags(c *cobra.Command) {
+	c.PersistentFlags().String("log.level", "info", "one of debug, info, warn, error or fatal")
+	c.PersistentFlags().String("log.format", "text", "one of text or json")
+	c.PersistentFlags().Bool("log.line", false, "enable filename and line in logs")
 }
 
-// Execute executes the commands
-func Execute() {
-	rootCmd.AddCommand(serve, validate, newCmd, generate)
-	if err := rootCmd.Execute(); err != nil {
-		logrus.WithError(err).Fatal()
-	}
+// AddBlogFlags will add the blog flags to the given command
+func AddBlogFlags(c *cobra.Command) {
+	c.PersistentFlags().String("blog.pages", "pages/", "directory in which articles are stored")
+	c.PersistentFlags().String("blog.code.style", "monokai", "style of the code sections")
+	c.PersistentFlags().String("blog.author.twitter", "", "Twitter handle of the author")
+	c.PersistentFlags().String("blog.author.name", "", "name (or nickname) of the author")
+	c.PersistentFlags().String("blog.author.github", "", "github username of the author")
+	c.PersistentFlags().String("blog.author.site", "", "website of the author")
+	c.PersistentFlags().String("blog.author.avatar", "", "URL to the author's avatar")
+	c.PersistentFlags().Bool("blog.share", false, "add a Twitter share button on articles")
 }
 
-func init() {
-	cobra.OnInitialize(initialize)
-
-	// Global flags
-	rootCmd.PersistentFlags().String("log.level", "info", "one of debug, info, warn, error or fatal")
-	rootCmd.PersistentFlags().String("log.format", "text", "one of text or json")
-	rootCmd.PersistentFlags().Bool("log.line", false, "enable filename and line in logs")
-
-	// Blog
-	rootCmd.PersistentFlags().String("blog.title", "", "your blog's title")
-	rootCmd.PersistentFlags().String("blog.description", "", "your blog's description")
-	rootCmd.PersistentFlags().Bool("blog.draft", false, "show drafts")
-
-	// Blog - Author
-	rootCmd.PersistentFlags().String("blog.pages", "pages/", "directory in which articles are stored")
-	rootCmd.PersistentFlags().String("blog.code.style", "monokai", "style of the code sections")
-	rootCmd.PersistentFlags().String("blog.author.twitter", "", "Twitter handle of the author")
-	rootCmd.PersistentFlags().String("blog.author.name", "", "name (or nickname) of the author")
-	rootCmd.PersistentFlags().String("blog.author.github", "", "github username of the author")
-	rootCmd.PersistentFlags().String("blog.author.site", "", "website of the author")
-	rootCmd.PersistentFlags().String("blog.author.avatar", "", "URL to the author's avatar")
-	rootCmd.PersistentFlags().Bool("blog.share", false, "add a Twitter share button on articles")
-
-	// Flag binding
-	viper.BindPFlags(rootCmd.PersistentFlags()) // nolint: errcheck
+// BindPersistentFlags will bind all the persistant flags to the given command
+// and call BindPFlags, effectively taking those flags into account when running
+func BindPersistentFlags(c *cobra.Command) error {
+	AddLogFlags(c)
+	AddBlogFlags(c)
+	return viper.BindPFlags(c.PersistentFlags())
 }
 
-func initialize() {
+// Initialize will be run when cobra finishes its initialization
+func Initialize() {
 	// Environment variables
-	viper.SetEnvPrefix("smallblog")
 	viper.AutomaticEnv()
+	viper.SetEnvPrefix("smallblog")
+	viper.SetEnvKeyReplacer(strings.NewReplacer(".", "_"))
 
 	// Configuration file
-	viper.SetConfigName("conf")
-	viper.AddConfigPath(".")
-	viper.AddConfigPath("/config/")
-	if err := viper.ReadInConfig(); err != nil {
-		logrus.Warn("No configuration file found")
+	if viper.GetString("conf") != "" {
+		viper.SetConfigFile(viper.GetString("conf"))
+	} else {
+		viper.SetConfigName("conf")
+		viper.AddConfigPath(".")
+		viper.AddConfigPath("/config/")
 	}
+	hasconf := viper.ReadInConfig() == nil
+
+	// Set log level
 	lvl := viper.GetString("log.level")
-	l, err := logrus.ParseLevel(lvl)
-	if err != nil {
-		logrus.WithField("level", lvl).Warn("Invalid log level, fallback to 'info'")
+	if l, err := logrus.ParseLevel(lvl); err != nil {
+		logrus.WithFields(logrus.Fields{"level": lvl, "fallback": "info"}).Warn("Invalid log level")
 	} else {
 		logrus.SetLevel(l)
 	}
+
+	// Set log format
 	switch viper.GetString("log.format") {
 	case "json":
 		logrus.SetFormatter(&logrus.JSONFormatter{})
 	default:
-	case "text":
-		logrus.SetFormatter(&logrus.TextFormatter{})
+		logrus.SetFormatter(&logrus.TextFormatter{
+			DisableTimestamp: true,
+			ForceColors:      true,
+		})
 	}
+	// Defines if logrus should display filenames and line where the log ocured
 	if viper.GetBool("log.line") {
 		logrus.AddHook(filename.NewHook())
+	}
+	// Delays the log for once the logger has been setup
+	if hasconf {
+		logrus.WithField("file", viper.ConfigFileUsed()).Debug("Found configuration file")
+	} else {
+		logrus.Debug("No configuration file found")
 	}
 }

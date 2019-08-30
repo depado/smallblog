@@ -13,7 +13,7 @@ func SplitFile(fn string) ([]byte, []byte, error) {
 	if file, err = os.Open(fn); err != nil {
 		return nil, nil, err
 	}
-	defer file.Close()
+	defer file.Close() // nolint: errcheck
 	var h []byte
 	var b []byte
 	in := true

@@ -3,6 +3,9 @@
 export GO111MODULE=on
 export CGO_ENABLED=false
 BINARY=smallblog
+VERSION=$(shell git describe --abbrev=0 --tags 2> /dev/null || echo "0.1.0")
+BUILD=$(shell git rev-parse HEAD 2> /dev/null || echo "undefined")
+LDFLAGS=-ldflags "-X main.Version=$(VERSION) -X main.Build=$(BUILD)"
 
 .PHONY: help
 help:
@@ -10,15 +13,15 @@ help:
 
 .PHONY: build
 build: ## Build
-	go build -o $(BINARY)
-
-.PHONY: css
-css: ## Build the CSS and map file from scss
-	sass css/style.scss:assets/style.min.css --style compressed
+	go build -o $(BINARY) $(LDFLAGS)
 
 .PHONY: install
 install: ## Build and install
-	go install
+	go install $(LDFLAGS)
+
+.PHONY: css
+css: ## Build the CSS and map file from scss
+	sass assets/sass/style.scss:assets/style.min.css --style compressed
 
 .PHONY: run
 run: ## Runs the server

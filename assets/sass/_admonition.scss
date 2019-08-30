@@ -1,7 +1,8 @@
 $colors: (
   "success": #64dd17,
   "question": #00c853,
-  "info": #448aff,
+  "note": #448aff,
+  "info": #00b8d4,
   "warning": #ff9100,
   "hint": #009688,
   "danger": #ff1744
@@ -13,7 +14,8 @@ $icons: (
   "question": "\f128",
   "hint": "\f06d",
   "success": "\f00c",
-  "warning": "\f071"
+  "warning": "\f071",
+  "important": "\f12a"
 );
 
 @mixin admonition($color, $icon) {
@@ -21,6 +23,7 @@ $icons: (
   border-left: 0.2rem solid $color;
   > p.admonition-title {
     background-color: $dark;
+    font-size: 0.75rem;
     &::before {
       font-family: "Font Awesome 5 Free";
       font-weight: 900;
@@ -32,12 +35,13 @@ $icons: (
 }
 
 .admonition {
-  $color: map-get($colors, "info");
+  // Default color when admonition is used without type
+  $color: map-get($colors, "note");
   $dark: rgba($color, 0.1);
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12),
     0 3px 1px -2px rgba(0, 0, 0, 0.2);
   position: relative;
-  margin: 1.5625em 0;
+  margin: 1.5em 0;
   padding: 0 0.6rem;
   border-left: 0.2rem solid $color;
   border-left-color: $color;
@@ -53,12 +57,11 @@ $icons: (
     font-weight: 700;
   }
 
-  &.note,
+  &.note {
+    @include admonition(map-get($colors, "note"), map-get($icons, "note"));
+  }
   &.info {
     @include admonition(map-get($colors, "info"), map-get($icons, "note"));
-  }
-  &.danger {
-    @include admonition(map-get($colors, "danger"), map-get($icons, "danger"));
   }
   &.question {
     @include admonition(
@@ -66,7 +69,8 @@ $icons: (
       map-get($icons, "question")
     );
   }
-  &.hint {
+  &.hint,
+  &.tip {
     @include admonition(map-get($colors, "hint"), map-get($icons, "hint"));
   }
   &.success {
@@ -75,10 +79,21 @@ $icons: (
       map-get($icons, "success")
     );
   }
-  &.warning {
+  &.warning,
+  &.caution {
     @include admonition(
       map-get($colors, "warning"),
       map-get($icons, "warning")
+    );
+  }
+  &.danger,
+  &.error {
+    @include admonition(map-get($colors, "danger"), map-get($icons, "danger"));
+  }
+  &.important {
+    @include admonition(
+      map-get($colors, "danger"),
+      map-get($icons, "important")
     );
   }
 }
