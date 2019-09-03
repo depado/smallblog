@@ -49,6 +49,10 @@ $icons: (
   font-size: 0.8rem;
   overflow: auto;
 
+  code {
+    font-size: 0.75rem;
+  }
+
   &-title {
     margin: 0 -0.6rem;
     padding: 0.4rem 0.6rem;

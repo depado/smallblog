@@ -185,16 +185,22 @@ pre {
 code {
   font-family: "Roboto Mono";
   background-color: rgba(0, 0, 0, 0.08);
-  padding: 0.2em;
-  padding-left: 0.3em;
-  padding-right: 0.3em;
-  padding-top: 0.3em;
-  font-size: 14px;
+  padding: 0 .3rem 0 .3rem;
   border-radius: 0.3em;
+  font-size: 15px;
 
   code[class*="language-"] & {
     font-family: "Roboto Mono";
   }
+}
+
+// Image caption
+img + em {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: -30px;
+  font-size: 16px;
 }
 
 .title {
