@@ -1,8 +1,5 @@
 @import "admonition";
-
-$color-blue: #1565c0;
-$color-grey: #4d4d4d;
-$color-dark-grey: #303030;
+@import "theme";
 
 html,
 button,
@@ -18,17 +15,17 @@ body {
   text-align: justify;
   line-height: 1.6;
   font-size: 0;
-  color: $color-dark-grey;
+  color: $color-text;
   padding: 0 10px;
-  background-color: #fff;
+  background-color: $color-white;
 }
 th,
 td {
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid $color-table-even;
   padding: 15px;
 }
 tr:nth-child(even) {
-  background-color: #f2f2f2;
+  background-color: $color-table-odd;
 }
 table {
   border-collapse: collapse;
@@ -49,7 +46,7 @@ a {
   text-decoration: none;
   color: $color-grey;
   &:hover {
-    color: $color-dark-grey;
+    color: $color-text;
   }
   &:active,
   &:link {
@@ -59,15 +56,15 @@ a {
 
 .md {
   a {
-    color: #07a;
+    color: $color-link;
     &:hover {
       text-decoration: underline;
     }
   }
   nav a {
-    color: grey;
+    color: $color-grey;
     &:hover {
-      color: $color-dark-grey;
+      color: $color-text;
       text-decoration: none;
     }
   }
@@ -81,10 +78,10 @@ a {
       display: none;
       font-weight: 700;
       text-decoration: none;
-      color: grey;
+      color: $color-grey;
       &:hover {
         text-decoration: none;
-        color: $color-dark-grey;
+        color: $color-text;
       }
     }
   }
@@ -107,15 +104,13 @@ h3 {
 hr {
   border: 0;
   height: 1px;
-  background: grey;
+  background: $color-grey;
 }
 blockquote {
   padding-left: 10px;
-  padding-bottom: 10px;
   margin: 0;
-  border-left: 4px solid;
-  border-color: grey;
-  font-style: italic;
+  border-left: 4px solid $color-quote-border;
+  color: $color-quote;
   overflow: auto;
   > p {
     padding-right: 10px;
@@ -154,7 +149,7 @@ summary {
 pre {
   font-family: "Roboto Mono";
   font-size: 14px;
-  background: #272822;
+  background: $color-code-background;
   padding: 1em;
   margin: 0.5em 0;
   overflow: auto;
@@ -185,7 +180,7 @@ pre {
 code {
   font-family: "Roboto Mono";
   background-color: rgba(0, 0, 0, 0.08);
-  padding: 0 .3rem 0 .3rem;
+  padding: 0 0.3rem 0 0.3rem;
   border-radius: 0.3em;
   font-size: 15px;
 
@@ -227,23 +222,23 @@ img + em {
 }
 .twitter {
   background: #00aced;
-  color: #fff;
+  color: $color-white;
   border-radius: 5%;
   padding-top: 0.2em;
   padding-bottom: 0.2em;
 }
 .tag {
   border-radius: 16px;
-  border: solid grey 1px;
-  color: grey;
+  border: solid $color-grey 1px;
+  color: $color-grey;
   &:hover {
-    background-color: grey;
-    color: white;
+    background-color: $color-grey;
+    color: $color-white;
   }
 }
 .draftinfo {
-  background: map-get($colors, "warning");
-  color: #fff;
+  background: $color-warning;
+  color: $color-white;
   border-radius: 5px;
   float: right;
   text-align: center;
@@ -279,10 +274,8 @@ img + em {
   border-width: 1px;
 }
 span.draft {
-  color: white;
-  background-color: map-get($colors, "warning");
-  border-color: map-get($colors, "warning");
-  border-style: solid;
+  color: $color-white;
+  background-color: $color-warning;
   border-width: 1px;
   border-radius: 3px;
   padding-left: 6px;
@@ -296,14 +289,14 @@ span.draft {
 }
 
 .post {
-  border-left: 0.25rem solid $color-blue;
+  border-left: 0.25rem solid $color-post-theme;
   border-radius: 0.1rem;
   padding-left: 0.5rem;
   margin-bottom: 2rem;
   p {
     margin: 0;
     &.description {
-      color: grey;
+      color: $color-grey;
       font-size: 0.85rem;
       margin: 0.5rem 0 0.5rem 0;
     }
@@ -312,6 +305,6 @@ span.draft {
     }
   }
   &.draft {
-    border-left: 0.2rem map-get($colors, "warning") solid;
+    border-left: 0.2rem $color-warning solid;
   }
 }
