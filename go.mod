@@ -1,6 +1,6 @@
 module github.com/Depado/smallblog
 
-go 1.12
+go 1.13
 
 require (
 	github.com/Depado/bfplus v0.1.1
@@ -30,7 +30,7 @@ require (
 	github.com/stvp/slug v0.0.0-20150928221549-5ab8191bb1fe
 	github.com/ugorji/go v1.1.7 // indirect
 	golang.org/x/net v0.0.0-20190827160401-ba9fcec4b297 // indirect
-	golang.org/x/sys v0.0.0-20190830080133-08d80c9d36de // indirect
+	golang.org/x/sys v0.0.0-20190904005037-43c01164e931 // indirect
 	golang.org/x/text v0.3.2 // indirect
 	gopkg.in/russross/blackfriday.v2 v2.0.1
 	gopkg.in/yaml.v2 v2.2.2

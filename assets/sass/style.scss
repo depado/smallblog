@@ -62,7 +62,7 @@ a {
     }
   }
   nav a {
-    color: $color-grey;
+    color: $color-toc-link;
     &:hover {
       color: $color-text;
       text-decoration: none;
@@ -78,7 +78,7 @@ a {
       display: none;
       font-weight: 700;
       text-decoration: none;
-      color: $color-grey;
+      color: $color-toc-link;
       &:hover {
         text-decoration: none;
         color: $color-text;
