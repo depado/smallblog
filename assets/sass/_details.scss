@@ -32,6 +32,9 @@ details {
   code {
     font-size: 0.75rem;
   }
+  &[open] > summary::after {
+    content: $icon-chevron-up;
+  }
   > summary {
     margin: 0 -0.6rem;
     padding: 0.4rem 0.6rem;
@@ -46,8 +49,12 @@ details {
       content: $icon-note;
       color: $color;
     }
-  }
-  > summary {
+    &::after {
+      font-family: "Font Awesome 5 Free";
+      font-weight: 600;
+      float: right;
+      content: $icon-chevron-down;
+    }
     &:first-of-type {
       list-style-type: none;
     }
