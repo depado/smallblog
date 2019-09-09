@@ -1,5 +1,6 @@
 @import "admonition";
 @import "theme";
+@import "details";
 
 html,
 button,
@@ -104,11 +105,12 @@ h3 {
 hr {
   border: 0;
   height: 1px;
-  background: $color-grey;
+  background: $color-quote;
 }
 blockquote {
   padding-left: 10px;
-  margin: 0;
+  margin-left: 0;
+  margin-right: 0;
   border-left: 4px solid $color-quote-border;
   color: $color-quote;
   overflow: auto;
@@ -125,20 +127,6 @@ cite {
 
 nav > ul > li {
   padding-top: 0.6em;
-}
-
-details {
-  padding: 5px 10px 5px 10px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-
-  > summary {
-    &:first-of-type {
-      list-style-type: none;
-    }
-    &::-webkit-details-marker {
-      display: none;
-    }
-  }
 }
 
 summary {

@@ -1,0 +1,101 @@
+@import "theme";
+
+@mixin detail($color, $icon) {
+  $dark: rgba($color, 0.1);
+  border-left-color: $color;
+  > summary {
+    background-color: $dark;
+    border-bottom-color: $dark;
+    &::before {
+      content: $icon;
+      color: $color;
+    }
+  }
+}
+
+details {
+  $color: $color-note;
+  $dark: rgba($color, 0.1);
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12),
+    0 3px 1px -2px rgba(0, 0, 0, 0.2);
+  position: relative;
+  margin: 1.5em 0;
+  padding: 0 0.6rem;
+  border-left: 0.2rem solid $color;
+  border-radius: 0.1rem;
+  font-size: 0.8rem;
+  overflow: auto;
+  pre {
+    width: auto;
+    margin: auto;
+  }
+  code {
+    font-size: 0.75rem;
+  }
+  > summary {
+    margin: 0 -0.6rem;
+    padding: 0.4rem 0.6rem;
+    border-bottom: 0.05rem solid $dark;
+    background-color: $dark;
+    font-weight: 700;
+    font-size: 0.75rem;
+    &::before {
+      font-family: "Font Awesome 5 Free";
+      font-weight: 900;
+      margin-right: 0.4rem;
+      content: $icon-note;
+      color: $color;
+    }
+  }
+  > summary {
+    &:first-of-type {
+      list-style-type: none;
+    }
+    &::-webkit-details-marker {
+      display: none;
+    }
+  }
+  &.note {
+    @include detail($color-note, $icon-note);
+  }
+  &.info {
+    @include detail($color-info, $icon-note);
+  }
+  &.question {
+    @include detail($color-question, $icon-question);
+  }
+  &.hint,
+  &.tip {
+    @include detail($color-hint, $icon-hint);
+  }
+  &.success {
+    @include detail($color-success, $icon-success);
+  }
+  &.warning,
+  &.caution {
+    @include detail($color-warning, $icon-warning);
+  }
+  &.danger,
+  &.error {
+    @include detail($color-danger, $icon-danger);
+  }
+  &.important {
+    @include detail($color-danger, $icon-important);
+  }
+  &.code {
+    border-left: none;
+    background-color: $color-code;
+    > summary {
+      background-color: #5c5c5c;
+      border-bottom-color: #5c5c5c;
+      color: white;
+      &::before {
+        content: $icon-code;
+        color: white;
+      }
+    }
+    pre {
+      padding: 0;
+    }
+  }
+}
