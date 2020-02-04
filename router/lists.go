@@ -1,4 +1,4 @@
-package views
+package router
 
 import (
 	"fmt"
@@ -6,25 +6,13 @@ import (
 	"net/http"
 	"sort"
 
-	"github.com/gin-gonic/gin"
-	"github.com/sirupsen/logrus"
-	"github.com/spf13/viper"
-
 	"github.com/Depado/smallblog/models"
+	"github.com/gin-gonic/gin"
+	"github.com/spf13/viper"
 )
 
-// GetRSSFeed returns the RSS feed of the blog
-func GetRSSFeed(c *gin.Context) {
-	rss, err := models.RSS.ToRss()
-	if err != nil {
-		c.String(http.StatusInternalServerError, "500 internal server error")
-		return
-	}
-	c.Data(200, "text/xml", []byte(rss))
-}
-
 // PostsByTag searches for posts containing tag
-func PostsByTag(c *gin.Context) {
+func (br *BlogRouter) PostsByTag(c *gin.Context) {
 	tag := c.Param("tag")
 	res := []*models.Page{}
 	for _, v := range models.SPages {
@@ -49,38 +37,8 @@ func PostsByTag(c *gin.Context) {
 	}
 }
 
-// Post is the views for a single post.
-func Post(c *gin.Context) {
-	if page, ok := models.MPages[c.Param("slug")]; ok {
-		data := gin.H{
-			"post":        page,
-			"gitalk":      models.GetGitalk(),
-			"extra_style": models.GlobCSS,
-			"analytics":   gin.H{"tag": viper.GetString("analytics.tag"), "enabled": viper.GetBool("analytics.enabled")},
-			"share":       viper.GetBool("blog.share"),
-			"share_url":   page.GetShare(),
-		}
-		c.HTML(http.StatusOK, "post.tmpl", data)
-	} else {
-		c.String(http.StatusNotFound, "404 not found")
-	}
-}
-
-// RawPost is used to view the raw markdown file
-func RawPost(c *gin.Context) {
-	slug := c.Param("slug")
-	if val, ok := models.MPages[slug]; ok {
-		if _, err := c.Writer.Write([]byte(val.Raw)); err != nil {
-			logrus.WithError(err).Error("Unable to write raw markdown")
-			c.String(http.StatusInternalServerError, "500 internal server error")
-		}
-	} else {
-		c.String(http.StatusNotFound, "404 not found")
-	}
-}
-
 // Index is the view to list all posts.
-func Index(c *gin.Context) {
+func (br *BlogRouter) Index(c *gin.Context) {
 	data := gin.H{
 		"posts":       models.SPages,
 		"title":       viper.GetString("blog.title"),
@@ -92,7 +50,7 @@ func Index(c *gin.Context) {
 }
 
 // GetDrafts gets the unsorted drafts
-func GetDrafts(c *gin.Context) {
+func (br *BlogRouter) GetDrafts(c *gin.Context) {
 	o := models.PageSlice{}
 	for _, v := range models.MPages {
 		if v.Draft {

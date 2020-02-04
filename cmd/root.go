@@ -74,8 +74,7 @@ func Initialize() {
 		logrus.SetFormatter(&logrus.JSONFormatter{})
 	default:
 		logrus.SetFormatter(&logrus.TextFormatter{
-			DisableTimestamp: true,
-			ForceColors:      true,
+			ForceColors: true,
 		})
 	}
 	// Defines if logrus should display filenames and line where the log ocured
