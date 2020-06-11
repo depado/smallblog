@@ -30,28 +30,26 @@ func (br *BlogRouter) SetupRoutes() error {
 	}
 
 	// Router initialization
-	r := gin.Default()
-	r.LoadHTMLGlob("templates/*.tmpl")
-	r.Static("/static", "./assets")
+	br.r = gin.Default()
+	br.r.LoadHTMLGlob("templates/*.tmpl")
+	br.r.Static("/static", "./assets")
 
 	// Assets for pages
 	ad := filepath.Join(br.Pages, "assets")
 	if _, err := os.Stat(ad); err == nil {
-		r.Static("/assets", ad)
+		br.r.Static("/assets", ad)
 	}
 
 	// Routes Definition
-	r.GET("/", br.Index)
-	r.GET("/drafts", br.GetDrafts)
-	r.GET("/rss", br.GetRSSFeed)
-	r.GET("/tag/:tag", br.PostsByTag)
-	r.GET("/post/:slug", br.Post)
-	r.GET("/post/:slug/raw", br.RawPost)
-	r.GET("/robots.txt", func(c *gin.Context) {
+	br.r.GET("/", br.Index)
+	br.r.GET("/drafts", br.GetDrafts)
+	br.r.GET("/rss", br.GetRSSFeed)
+	br.r.GET("/tag/:tag", br.PostsByTag)
+	br.r.GET("/post/:slug", br.Post)
+	br.r.GET("/post/:slug/raw", br.RawPost)
+	br.r.GET("/robots.txt", func(c *gin.Context) {
 		c.String(http.StatusOK, "User-Agent: *\nDisallow: /post/*/raw\nDisallow: /tag/*")
 	})
-
-	br.r = r
 
 	return nil
 }

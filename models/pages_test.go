@@ -6,7 +6,7 @@ import (
 	"testing"
 	"time"
 
-	"gopkg.in/russross/blackfriday.v2"
+	"github.com/russross/blackfriday/v2"
 )
 
 func TestParseFile(t *testing.T) {
@@ -22,7 +22,7 @@ description: Because everyone needs examples.
 slug: example
 date: 2016-05-04 15:31:00
 tags:
-    - inspiration`: Page{
+    - inspiration`: {
 			Title:       "Example Article",
 			Description: "Because everyone needs examples.",
 			Slug:        "example",

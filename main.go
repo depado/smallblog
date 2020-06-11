@@ -5,7 +5,6 @@ import (
 
 	"github.com/Depado/smallblog/cmd"
 	"github.com/Depado/smallblog/router"
-	"github.com/davecgh/go-spew/spew"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -52,7 +51,6 @@ var serveCmd = &cobra.Command{
 			viper.GetString("analytics.tag"),
 			viper.GetBool("blog.share"),
 		)
-		spew.Dump(r)
 		if err := r.SetupRoutes(); err != nil {
 			logrus.WithError(err).Fatal("Unable to setup routes")
 		}
