@@ -17,6 +17,11 @@ func AddLogFlags(c *cobra.Command) {
 	c.PersistentFlags().Bool("log.line", false, "enable filename and line in logs")
 }
 
+// AddLogFlags will add the log flags to the given command
+func AddConfFlag(c *cobra.Command) {
+	c.PersistentFlags().StringP("conf", "c", "", "configuration file to use")
+}
+
 // AddBlogFlags will add the blog flags to the given command
 func AddBlogFlags(c *cobra.Command) {
 	c.PersistentFlags().String("blog.pages", "pages/", "directory in which articles are stored")
@@ -32,6 +37,7 @@ func AddBlogFlags(c *cobra.Command) {
 // BindPersistentFlags will bind all the persistant flags to the given command
 // and call BindPFlags, effectively taking those flags into account when running
 func BindPersistentFlags(c *cobra.Command) error {
+	AddConfFlag(c)
 	AddLogFlags(c)
 	AddBlogFlags(c)
 	return viper.BindPFlags(c.PersistentFlags())
@@ -68,8 +74,7 @@ func Initialize() {
 		logrus.SetFormatter(&logrus.JSONFormatter{})
 	default:
 		logrus.SetFormatter(&logrus.TextFormatter{
-			DisableTimestamp: true,
-			ForceColors:      true,
+			ForceColors: true,
 		})
 	}
 	// Defines if logrus should display filenames and line where the log ocured

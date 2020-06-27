@@ -2,66 +2,86 @@ package router
 
 import (
 	"fmt"
-	"log"
-	"net/http"
-	"os"
-	"path/filepath"
 
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
-	"github.com/spf13/viper"
 
-	"github.com/Depado/smallblog/filesystem"
+	"github.com/Depado/smallblog/domain"
 	"github.com/Depado/smallblog/models"
-	"github.com/Depado/smallblog/views"
 )
 
-// Run setups and runs the server
-func Run() {
-	var err error
+// BlogRouter holds the necessary data for the router to run properly
+type BlogRouter struct {
+	Host    string
+	Port    int
+	Debug   bool
+	RootURL string
 
-	// Initial posts parsing
-	if err = models.ParseDir(viper.GetString("blog.pages")); err != nil {
-		log.Fatal(err)
+	Pages        string
+	Share        bool
+	AnalyticsTag string
+	Gitalk       *domain.Gitalk
+	r            *gin.Engine
+}
+
+// New will create a new BlogRouter with the given arguments
+func New(pages, host string, port int, debug bool, rootURL string, gitalk bool,
+	token, repo, owner string, admins []string, analytics bool,
+	analyticsTag string, share bool) *BlogRouter {
+
+	r := &BlogRouter{
+		Pages:   pages,
+		Host:    host,
+		Port:    port,
+		Debug:   debug,
+		RootURL: rootURL,
+		Share:   share,
 	}
 
-	// Watching filesystem
-	go filesystem.Watch(viper.GetString("blog.pages"))
-
-	// Debug mode
-	if !viper.GetBool("server.debug") {
-		gin.SetMode(gin.ReleaseMode)
+	if gitalk {
+		r.Gitalk = &domain.Gitalk{
+			Owner:  owner,
+			Admins: admins,
+			Repo:   repo,
+			Token:  token,
+		}
 	}
 
-	// Router initialization
-	r := gin.Default()
-	r.LoadHTMLGlob("templates/*.tmpl")
-	r.Static("/static", "./assets")
-
-	// Assets for pages
-	ad := filepath.Join(viper.GetString("blog.pages"), "assets")
-	if _, err := os.Stat(ad); err == nil {
-		r.Static("/assets", ad)
+	if analytics {
+		r.AnalyticsTag = analyticsTag
 	}
 
-	// Routes Definition
-	r.GET("/", views.Index)
-	r.GET("/drafts", views.GetDrafts)
-	r.GET("/rss", views.GetRSSFeed)
-	r.GET("/tag/:tag", views.PostsByTag)
-	r.GET("/post/:slug", views.Post)
-	r.GET("/post/:slug/raw", views.RawPost)
-	r.GET("/robots.txt", func(c *gin.Context) {
-		c.String(http.StatusOK, "User-Agent: *\nDisallow: /post/*/raw\nDisallow: /tag/*")
-	})
+	return r
+}
 
-	// Run
+func (br *BlogRouter) GenerateCtx() gin.H {
+	c := gin.H{
+		"rootURL":     br.RootURL,
+		"extra_style": models.GlobCSS,
+		"share":       br.Share,
+	}
+	if br.AnalyticsTag != "" {
+		c["analyticsTag"] = br.AnalyticsTag
+	}
+	if br.Gitalk != nil {
+		c["gitalk"] = gin.H{
+			"token":  br.Gitalk.Token,
+			"repo":   br.Gitalk.Repo,
+			"owner":  br.Gitalk.Owner,
+			"admins": br.Gitalk.Admins,
+		}
+	}
+
+	return c
+}
+
+func (br *BlogRouter) Start() {
 	logrus.WithFields(logrus.Fields{
-		"host": viper.GetString("server.host"),
-		"port": viper.GetInt("server.port"),
+		"host": br.Host,
+		"port": br.Port,
+		"root": br.RootURL,
 	}).Info("Starting server")
-
-	if err = r.Run(fmt.Sprintf("%s:%d", viper.GetString("server.host"), viper.GetInt("server.port"))); err != nil {
-		logrus.WithError(err).Fatal("Couldn't start server")
+	if err := br.r.Run(fmt.Sprintf("%s:%d", br.Host, br.Port)); err != nil {
+		logrus.WithError(err).Fatal("Unable to start server")
 	}
 }

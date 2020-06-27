@@ -6,9 +6,9 @@ import (
 
 	bfp "github.com/Depado/bfplus"
 	"github.com/alecthomas/chroma/formatters/html"
+	bf "github.com/russross/blackfriday/v2"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
-	bf "gopkg.in/russross/blackfriday.v2"
 )
 
 var exts = bf.NoIntraEmphasis | bf.Tables | bf.FencedCode | bf.Autolink |
@@ -27,7 +27,7 @@ func render(input []byte) []byte {
 		bfp.WithCodeHighlighting(
 			bfp.Style(viper.GetString("blog.code.style")),
 			bfp.WithoutAutodetect(),
-			bfp.ChromaOptions(html.WithClasses()),
+			bfp.ChromaOptions(html.WithClasses(true)),
 		),
 		bfp.WithHeadingAnchors(),
 		bfp.Extend(

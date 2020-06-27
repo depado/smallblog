@@ -36,7 +36,7 @@ func RunGenerate(output, input, title, description string) error {
 		}
 		if err = t.ExecuteTemplate(
 			fd, "post.tmpl",
-			gin.H{"post": v, "gitalk": models.GetGitalk(), "local": true},
+			gin.H{"post": v, "gitalk": gin.H{}, "local": true},
 		); err != nil {
 			return errors.Wrap(err, "execute template post")
 		}

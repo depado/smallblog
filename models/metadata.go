@@ -29,6 +29,15 @@ func (m *MetaData) Validate() error {
 	return nil
 }
 
+// HandleSlug will generate (and store) the slug if necessary
+func (m *MetaData) HandleSlug() {
+	slug.Replacement = '-'
+	if m.Slug == "" {
+		m.Slug = slug.Clean(m.Title)
+	}
+	m.Slug = slug.Clean(m.Slug)
+}
+
 // GenerateSlug will generate a slug if necessary, based on the title of the
 // article. Otherwise it will return the slug set in the metadata
 func (m *MetaData) GenerateSlug() string {

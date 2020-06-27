@@ -36,7 +36,25 @@ var serveCmd = &cobra.Command{
 	Use:   "serve",
 	Short: "Start serving the blog",
 	Run: func(c *cobra.Command, args []string) {
-		router.Run()
+		r := router.New(
+			viper.GetString("blog.pages"),
+			viper.GetString("server.host"),
+			viper.GetInt("server.port"),
+			viper.GetBool("server.debug"),
+			viper.GetString("server.root_url"),
+			viper.GetBool("gitalk.enabled"),
+			viper.GetString("gitalk.token"),
+			viper.GetString("gitalk.repo"),
+			viper.GetString("gitalk.owner"),
+			viper.GetStringSlice("gitalk.admins"),
+			viper.GetBool("analytics.enabled"),
+			viper.GetString("analytics.tag"),
+			viper.GetBool("blog.share"),
+		)
+		if err := r.SetupRoutes(); err != nil {
+			logrus.WithError(err).Fatal("Unable to setup routes")
+		}
+		r.Start()
 	},
 }
 
