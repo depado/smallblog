@@ -19,7 +19,7 @@ require (
 	github.com/pelletier/go-toml v1.8.0 // indirect
 	github.com/pkg/errors v0.9.1
 	github.com/rjeczalik/notify v0.9.2
-	github.com/russross/blackfriday/v2 v2.0.1
+	gopkg.in/russross/blackfriday.v2 v2.0.1
 	github.com/sirupsen/logrus v1.6.0
 	github.com/spf13/afero v1.3.0 // indirect
 	github.com/spf13/cast v1.3.1 // indirect
