@@ -6,7 +6,7 @@ import (
 
 	bfp "github.com/Depado/bfplus"
 	"github.com/alecthomas/chroma/formatters/html"
-	bf "gopkg.in/russross/blackfriday.v2"
+	bf "github.com/russross/blackfriday/v2"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
 )

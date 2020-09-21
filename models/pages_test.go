@@ -6,7 +6,7 @@ import (
 	"testing"
 	"time"
 
-	"gopkg.in/russross/blackfriday.v2"
+	bf "github.com/russross/blackfriday/v2"
 )
 
 func TestParseFile(t *testing.T) {
@@ -61,7 +61,7 @@ tags:
 func TestParseMarkdown(t *testing.T) {
 	// Just validating that p.Markdown is set to the right value after a call to ParseMarkdown
 	payload := map[string]template.HTML{
-		`**Hello**`: template.HTML(string(blackfriday.Run([]byte(`**Hello**`)))),
+		`**Hello**`: template.HTML(string(bf.Run([]byte(`**Hello**`)))),
 	}
 	for in, expected := range payload {
 		p := Page{}
