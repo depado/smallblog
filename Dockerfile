@@ -1,37 +1,24 @@
 # Build Step
-FROM golang:latest AS build
+FROM golang:1.18-alpine AS builder
 
-# Prerequisites and vendoring
-RUN mkdir -p $GOPATH/src/github.com/Depado/smallblog
-ADD . $GOPATH/src/github.com/Depado/smallblog
+# Dependencies
+RUN apk update && apk add --no-cache upx make git
+
+# Source
 WORKDIR $GOPATH/src/github.com/Depado/smallblog
-RUN go get -u github.com/golang/dep/cmd/dep
-RUN dep ensure -vendor-only
+COPY go.mod go.sum ./
+RUN go mod download
+RUN go mod verify
+COPY . .
 
 # Build
-ARG build
-ARG version
-RUN CGO_ENABLED=0 go build -ldflags="-s -w -X main.Version=${version} -X main.Build=${build}" -o /smallblog
+RUN make tmp
+RUN upx --best --lzma /tmp/smallblog
+
 
 # Final Step
-FROM alpine
-
-# Base packages
-RUN apk update
-RUN apk upgrade
-RUN apk add ca-certificates && update-ca-certificates
-RUN apk add --update tzdata
-RUN rm -rf /var/cache/apk/*
-
-# Copy binary from build step
-COPY --from=build /smallblog /home/
-
-# Define timezone
-ENV TZ=Europe/Paris
-
-# Define the ENTRYPOINT
-WORKDIR /home
-ENTRYPOINT ./smallblog
-
-# Document that the service listens on port 8080.
-EXPOSE 8080
+FROM gcr.io/distroless/static
+COPY --from=builder /tmp/smallblog /go/bin/smallblog
+VOLUME [ "/data" ]
+WORKDIR /data
+ENTRYPOINT ["/go/bin/smallblog"]

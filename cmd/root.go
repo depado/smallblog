@@ -17,7 +17,7 @@ func AddLogFlags(c *cobra.Command) {
 	c.PersistentFlags().Bool("log.line", false, "enable filename and line in logs")
 }
 
-// AddLogFlags will add the log flags to the given command
+// AddConfFlag will add the configuration flag to the given command
 func AddConfFlag(c *cobra.Command) {
 	c.PersistentFlags().StringP("conf", "c", "", "configuration file to use")
 }

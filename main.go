@@ -1,8 +1,6 @@
 package main
 
 import (
-	"fmt"
-
 	"github.com/Depado/smallblog/cmd"
 	"github.com/Depado/smallblog/router"
 	"github.com/sirupsen/logrus"
@@ -10,25 +8,10 @@ import (
 	"github.com/spf13/viper"
 )
 
-// Build number and versions injected at compile time
-var (
-	Version = "unknown"
-	Build   = "unknown"
-)
-
 var rootCmd = &cobra.Command{
 	Use:   "smallblog",
 	Short: "Smallblog is a simple self-hosted no-db blog",
 	Long:  "A simple blog engine which parses markdown files with front-matter in yaml.",
-}
-
-// Version command that will display the build number and version (if any)
-var versionCmd = &cobra.Command{
-	Use:   "version",
-	Short: "Show build and version",
-	Run: func(c *cobra.Command, args []string) { // nolint: unparam
-		fmt.Printf("Build: %s\nVersion: %s\n", Build, Version)
-	},
 }
 
 // Serve command that will actually run the server
@@ -89,7 +72,7 @@ func main() {
 	}
 
 	// Adding commands to the root command
-	rootCmd.AddCommand(versionCmd, serveCmd, generateCmd)
+	rootCmd.AddCommand(serveCmd, generateCmd, cmd.VersionCmd)
 
 	// Adding new command to the root command
 	if err = cmd.AddNewCommand(rootCmd); err != nil {
