@@ -5,7 +5,7 @@ import (
 	"html/template"
 
 	bfp "github.com/Depado/bfplus"
-	"github.com/alecthomas/chroma/formatters/html"
+	"github.com/alecthomas/chroma/v2/formatters/html"
 	bf "github.com/russross/blackfriday/v2"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
