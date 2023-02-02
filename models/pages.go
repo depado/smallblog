@@ -3,7 +3,6 @@ package models
 import (
 	"fmt"
 	"html/template"
-	"io/ioutil"
 	"net/url"
 	"os"
 	"path"
@@ -229,10 +228,10 @@ func (p *Page) Insert(batch bool) error {
 // ParseDir cycles through a directory and parses each file one by one.
 func ParseDir(dir string) error {
 	var err error
-	var files []os.FileInfo
+	var files []os.DirEntry
 	start := time.Now()
 
-	if files, err = ioutil.ReadDir(dir); err != nil {
+	if files, err = os.ReadDir(dir); err != nil {
 		return err
 	}
 
