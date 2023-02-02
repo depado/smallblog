@@ -10,7 +10,7 @@ import (
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
-	yaml "gopkg.in/yaml.v2"
+	yaml "gopkg.in/yaml.v3"
 
 	"github.com/Depado/smallblog/models"
 )
@@ -19,7 +19,7 @@ import (
 func AddNewCommand(c *cobra.Command) error {
 	var err error
 
-	var helpmsg = `Generate a new article. The first argument is the filename of the 
+	var helpmsg = `Generate a new article. The first argument is the filename of the
 	article created and should not exist in the configured pages directory. If the
 	title isn't provided with the appropriate --title flag, it should be added by
 	hand in the generated file.`

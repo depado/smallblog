@@ -18,7 +18,7 @@ type MetaData struct {
 	Draft       bool     `yaml:"draft"`
 }
 
-// Validate validates that the metada is valid
+// Validate validates that the metadata is valid
 func (m *MetaData) Validate() error {
 	if m.Date == "" {
 		return fmt.Errorf("parser: The `date` field is mandatory")
