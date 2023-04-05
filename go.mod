@@ -8,7 +8,7 @@ require (
 	github.com/gin-gonic/gin v1.9.0
 	github.com/gorilla/feeds v1.1.1
 	github.com/onrik/logrus v0.10.0
-	github.com/otiai10/copy v1.9.0
+	github.com/otiai10/copy v1.10.0
 	github.com/pkg/errors v0.9.1
 	github.com/rjeczalik/notify v0.9.3
 	github.com/russross/blackfriday/v2 v2.1.0
