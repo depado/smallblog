@@ -1,5 +1,5 @@
 # Build Step
-FROM golang:1.20.5-alpine AS builder
+FROM golang:1.20.6-alpine AS builder
 
 # Dependencies
 RUN apk update && apk add --no-cache upx make git
