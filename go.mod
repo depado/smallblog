@@ -4,7 +4,7 @@ go 1.20
 
 require (
 	github.com/Depado/bfplus v0.5.0
-	github.com/alecthomas/chroma/v2 v2.13.0
+	github.com/alecthomas/chroma/v2 v2.14.0
 	github.com/gin-gonic/gin v1.10.0
 	github.com/gorilla/feeds v1.1.2
 	github.com/onrik/logrus v0.11.0
