@@ -2,8 +2,6 @@
 
 ![Go Version](https://img.shields.io/badge/go-latest-brightgreen)
 [![Go Report Card](https://goreportcard.com/badge/github.com/Depado/smallblog)](https://goreportcard.com/report/github.com/Depado/smallblog)
-[![Build Status](https://drone.depa.do/api/badges/Depado/smallblog/status.svg)](https://drone.depa.do/Depado/smallblog)
-[![codecov](https://codecov.io/gh/Depado/smallblog/branch/master/graph/badge.svg)](https://codecov.io/gh/Depado/smallblog)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/Depado/smallblog/blob/master/LICENSE)
 
 A simple self-hosted markdown flat files blog
@@ -25,7 +23,7 @@ that's not as fun.
 
 ## Features
 
-- Filesystem monitoring: Create, modify or delete a file and your blog is 
+- Filesystem monitoring: Create, modify or delete a file and your blog is
   updated
 - Automatic syntax highlighting using [bfchroma](https://github.com/Depado/bfchroma)
   (which uses [chroma](https://github.com/alecthomas/chroma) under the hood)
@@ -49,8 +47,8 @@ articles, so let's create that.
 $ mkdir pages
 ```
 
-Without configuration, smallblog will try to find a `pages/` directory in your 
-current working directory. So let's create your very first article, and for that 
+Without configuration, smallblog will try to find a `pages/` directory in your
+current working directory. So let's create your very first article, and for that
 we'll be using the `new` command :
 
 ```sh
@@ -63,14 +61,14 @@ This commands takes a single argument : The name of the file this command will
 write. It will automatically append the `.md` suffix if you don't specify it
 and will place it in the configured (or default) `pages` directory. Also we're
 specifying that this article is a draft. Drafts can be accessed directly using
-the slug of the article, or on the `/drafts` endpoint. Alternatively you can 
+the slug of the article, or on the `/drafts` endpoint. Alternatively you can
 start the server with `blog.draft` set to true, which will list draft articles
 on the homepage.
 
 To check if this is working, simply run the following command :
 
 ```sh
-$ smallblog serve --blog.draft                
+$ smallblog serve --blog.draft
 INFO[0000] Generated files                               files=1 took="201.207µs"
 INFO[0000] Starting server                               host=127.0.0.1 port=8080
 ```
@@ -128,14 +126,14 @@ Server related configuration. Defines on which host/port the server should
 listen as well as debug mode.
 
 | Field   | Description                            | Default     |
-|---------|----------------------------------------|-------------|
+| ------- | -------------------------------------- | ----------- |
 | `host`  | Host on which the server should listen | "127.0.0.1" |
 | `port`  | Port on which the server should listen | 8080        |
 | `debug` | Enable debug mode for the router       | false       |
 
 The `debug` value is especially useful if you modify the HTML templates of
 smallblog since you won't need a restart of the service to see your changes
-applied. 
+applied.
 
 ### blog
 
@@ -143,7 +141,7 @@ General blog configuration such as the blog title, description, pages directory
 and code highlighting style.
 
 | Field         | Description                               | Default   |
-|---------------|-------------------------------------------|-----------|
+| ------------- | ----------------------------------------- | --------- |
 | `title`       | Title of your blog                        | -         |
 | `description` | Description of your blog                  | -         |
 | `pages`       | Directory where your articles are stored  | "pages/"  |
@@ -153,7 +151,7 @@ and code highlighting style.
 ### blog.author
 
 | Field     | Description                    | Default |
-|-----------|--------------------------------|---------|
+| --------- | ------------------------------ | ------- |
 | `name`    | Name or username of the author | -       |
 | `github`  | Github handle of the author    | -       |
 | `twitter` | Twitter handle of the author   | -       |
@@ -168,10 +166,10 @@ by this author. This will also be displayed on the front page (article list).
 Configuration for Google Analytics. Other types or platforms will be supported
 but for now only GA can be enabled.
 
-| Field     | Description                                            | Default   |
-|-----------|--------------------------------------------------------|-----------|
-| `enabled` | Whether or not the Google Analytics feature is enabled | -         |
-| `tag`     | Google Analytics tag to use                            | -         |
+| Field     | Description                                            | Default |
+| --------- | ------------------------------------------------------ | ------- |
+| `enabled` | Whether or not the Google Analytics feature is enabled | -       |
+| `tag`     | Google Analytics tag to use                            | -       |
 
 ### Gitalk
 
@@ -181,7 +179,7 @@ see how you can configure gitalk for smallblog.
 ### Log
 
 | Field    | Description                                                                                                | Default |
-|----------|------------------------------------------------------------------------------------------------------------|---------|
+| -------- | ---------------------------------------------------------------------------------------------------------- | ------- |
 | `format` | Log format, either "text" or "json"                                                                        | "text"  |
 | `level`  | Defines the minimum level of logging that is displayed. One of "debug", "info", "warn", "error" or "fatal" | "info"  |
 | `line`   | Show where the log happened in the source code (filename, line number)                                     | false   |
@@ -206,7 +204,7 @@ Here is the list of yaml values you can fill
 | `author`      | An author object (as seen earlier) that overrides the global configured author        | No        |
 | `tags`        | A list of tags you want to apply on the article (useless right now, but still pretty) | No        |
 
-If any of the two mandatory values (`date` and `title`) are omitted, the parser 
+If any of the two mandatory values (`date` and `title`) are omitted, the parser
 will complain, output a log, and simply ignore the file.
 Note that the slug of the post will be automatically generated from the
 post's title if it is omitted.
@@ -242,14 +240,13 @@ It will also be listed at `example.com/`.
 
 The directory you define in your `conf.yml` file is constantly watched by the
 server. Which means several things :
- - If you create a new file, it will be parsed and added to your site.
-   (Also if you `mv` a file inside the directory)
- - If you modify an existing file, it will be parsed and modified.
- - If you delete an existing file, the article will be removed. (Also if you
-   `mv` a file out of the directory)
+
+- If you create a new file, it will be parsed and added to your site.
+  (Also if you `mv` a file inside the directory)
+- If you modify an existing file, it will be parsed and modified.
+- If you delete an existing file, the article will be removed. (Also if you
+  `mv` a file out of the directory)
 
 All these changes are instant. Usually a file takes ~250µs to be parsed. When
 you restart the server, all the files will be parsed again so they are stored in
 RAM (which is really efficient unless you have 250MB of markdown file).
-
-
