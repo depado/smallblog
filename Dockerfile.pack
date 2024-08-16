@@ -2,7 +2,7 @@
 FROM golang:1.22.5-alpine AS builder
 
 # Dependencies
-RUN apk update && apk add --no-cache make git
+RUN apk update && apk add --no-cache upx make git
 
 # Source
 WORKDIR $GOPATH/src/github.com/Depado/smallblog
@@ -13,6 +13,7 @@ COPY . .
 
 # Build
 RUN make tmp
+RUN upx --best --lzma /tmp/smallblog
 
 # Final Step
 FROM gcr.io/distroless/static
