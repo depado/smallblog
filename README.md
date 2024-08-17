@@ -250,3 +250,10 @@ server. Which means several things :
 All these changes are instant. Usually a file takes ~250µs to be parsed. When
 you restart the server, all the files will be parsed again so they are stored in
 RAM (which is really efficient unless you have 250MB of markdown file).
+
+## Docker usage
+
+```sh
+$ docker pull ghcr.io/depado/smallblog:2.1.5
+$ docker run -p 8080:8080 -v $PWD/pages:/pages ghcr.io/depado/smallblog:2.1.5 serve
+```

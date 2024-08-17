@@ -17,6 +17,6 @@ RUN make tmp
 # Final Step
 FROM gcr.io/distroless/static
 COPY --from=builder /tmp/smallblog /go/bin/smallblog
-VOLUME [ "/data" ]
-WORKDIR /data
-ENTRYPOINT ["/go/bin/smallblog"]
+COPY templates ./templates
+COPY assets ./assets
+ENTRYPOINT ["/go/bin/smallblog", "--server.host=0.0.0.0"]
