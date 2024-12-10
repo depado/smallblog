@@ -19,4 +19,5 @@ FROM gcr.io/distroless/static
 COPY --from=builder /tmp/smallblog /go/bin/smallblog
 COPY templates ./templates
 COPY assets ./assets
-ENTRYPOINT ["/go/bin/smallblog", "--server.host=0.0.0.0"]
+ENTRYPOINT ["/go/bin/smallblog"]
+CMD ["serve", "--server.host=0.0.0.0", "--server.port=8000"]
