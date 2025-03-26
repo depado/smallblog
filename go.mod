@@ -16,7 +16,7 @@ require (
 	github.com/russross/blackfriday/v2 v2.1.0
 	github.com/sirupsen/logrus v1.9.3
 	github.com/spf13/cobra v1.9.1
-	github.com/spf13/viper v1.20.0
+	github.com/spf13/viper v1.20.1
 	github.com/stvp/slug v0.0.0-20150928221549-5ab8191bb1fe
 	gopkg.in/yaml.v3 v3.0.1
 )
