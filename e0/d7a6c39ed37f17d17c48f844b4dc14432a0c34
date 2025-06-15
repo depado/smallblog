@@ -1,0 +1,1 @@
+{"go-coverage-action-fmt":1,"coverage_pct":9.66183574879227,"pkg_stats":{"github.com/Depado/smallblog":[0],"github.com/Depado/smallblog/filesystem":[0],"github.com/Depado/smallblog/domain":[0],"github.com/Depado/smallblog/cmd":[0],"github.com/Depado/smallblog/router":[0],"github.com/Depado/smallblog/models":[23.668639053254438]},"skipped_count":0}
