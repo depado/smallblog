@@ -6,7 +6,7 @@ toolchain go1.24.5
 
 require (
 	github.com/Depado/bfplus v0.5.0
-	github.com/alecthomas/chroma/v2 v2.19.0
+	github.com/alecthomas/chroma/v2 v2.20.0
 	github.com/gin-gonic/gin v1.10.1
 	github.com/gorilla/feeds v1.2.0
 	github.com/onrik/logrus v0.11.0
