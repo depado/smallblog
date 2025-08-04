@@ -210,7 +210,7 @@ func (p *Page) ParseMarkdown(b []byte) {
 // SPages will be sorted manually)
 func (p *Page) Insert(batch bool) error {
 	if val, ok := MPages[p.Slug]; ok {
-		return fmt.Errorf("Two pages have the same slug : %s and %s both have %s", p.File, val.File, p.Slug)
+		return fmt.Errorf("two pages have the same slug : %s and %s both have %s", p.File, val.File, p.Slug)
 	}
 	MPages[p.Slug] = p
 	if p.Draft && !viper.GetBool("blog.draft") {
