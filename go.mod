@@ -1,12 +1,12 @@
 module github.com/Depado/smallblog
 
-go 1.25.0
+go 1.26
 
 toolchain go1.26.3
 
 require (
 	github.com/Depado/bfplus v0.5.0
-	github.com/alecthomas/chroma/v2 v2.24.1
+	github.com/alecthomas/chroma/v2 v2.26.0
 	github.com/gin-gonic/gin v1.12.0
 	github.com/gorilla/feeds v1.2.0
 	github.com/onrik/logrus v0.11.0
@@ -27,6 +27,7 @@ require (
 	github.com/bytedance/sonic/loader v0.5.0 // indirect
 	github.com/cloudwego/base64x v0.1.6 // indirect
 	github.com/dlclark/regexp2 v1.12.0 // indirect
+	github.com/dlclark/regexp2/v2 v2.1.0 // indirect
 	github.com/fsnotify/fsnotify v1.9.0 // indirect
 	github.com/gabriel-vasile/mimetype v1.4.12 // indirect
 	github.com/gin-contrib/sse v1.1.0 // indirect
