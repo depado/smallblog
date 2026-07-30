@@ -24,5 +24,3 @@ jobs:
       packages: write
       actions: read
     uses: depado/github-actions/.github/workflows/docker.yml@main
-    secrets:
-      cleanup-token: ${{ secrets.PAT_DELETE_PACKAGES }}
