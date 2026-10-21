@@ -2,7 +2,7 @@ module github.com/Depado/smallblog
 
 go 1.26
 
-toolchain go1.27.2
+toolchain go1.27.3
 
 require (
 	github.com/Depado/bfplus v0.5.0
